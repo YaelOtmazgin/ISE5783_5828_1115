@@ -1,36 +1,28 @@
 package primitives;
 
-/**
- * Semi-Straight - All the points on the line that are on one side of the given point on the line 
+/** Semi-Straight - All the points on the line that are on one side of the given point on the line 
  * called the beginning / head of the ray
- * @author MENUHA
- */
+ * @author MENUHA */
 public class Ray {
-	/** Head of the ray */
-	final Point p0;
-	/** Direction */
-	final Vector dir;
+	// Head of the ray
+	private final Point p0;
+	// Direction
+	private final Vector dir;
 	
-	/**
-	 * Constructor that creates a Ray from a normalized vector point.
+	/** Constructor that creates a Ray from a normalized vector point.
 	 * @param p0 - the head of the Ray
-	 * @param dir - direction Vector which does not have to be normalized
-	 */
+	 * @param dir - direction Vector which does not have to be normalized */
 	public Ray(Point p0, Vector dir) {
 		this.p0 = p0;
 		this.dir = dir.normalize();
 	}
 	
-	/**
-	 * @return the head of the Ray
-	 */
+	/** @return the head of the Ray */
 	public Point getP0() {
 		return p0;
 	}
 
-	/**
-	 * @return the direction of the Ray
-	 */
+	/** @return the direction of the Ray */
 	public Vector getDir() {
 		return dir;
 	}
