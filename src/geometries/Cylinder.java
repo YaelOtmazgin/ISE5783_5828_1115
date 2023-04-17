@@ -7,7 +7,7 @@ import primitives.Vector;
 /** Cylinder class represents a finite cylinder in 3D Cartesian coordinate system */
 public class Cylinder extends Tube {
 	// The cylinder's height
-	private double height;
+	private final double height;
 	
 	/** Cylinder constructor based on axis ray, radius and height
 	 * @param axisRay Ray

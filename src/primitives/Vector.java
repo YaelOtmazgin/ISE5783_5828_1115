@@ -4,11 +4,12 @@ package primitives;
 /** Vector class represents a fundamental object in geometry with direction and size, 
  * defined by the end point (when the starting point - the beginning of the axes).
  * @author MENUHA */
-public class Vector extends Point{
+public class Vector extends Point {
 	/** Constructor to initialize Vector based object with its three number values
 	 * @param d1 first number value
 	 * @param d2 second number value
-	 * @param d3 third number value */
+	 * @param d3 third number value 
+	 * @throws IllegalArgumentException if the user is trying to define Zero Vector*/
 	public Vector(double d1, double d2, double d3) {
 		super(d1, d2, d3);
 	    if (this.xyz.equals(Double3.ZERO))
@@ -16,7 +17,8 @@ public class Vector extends Point{
 	}
 	   
 	/** Constructor to initialize Vector based object with Double3 object
-     * @param xyz contains 3 numbers */
+     * @param xyz contains 3 numbers 
+     * @throws IllegalArgumentException if the user is trying to define Zero Vector*/
 	Vector(Double3 xyz) {
 		super(xyz);
 		if (this.xyz.equals(Double3.ZERO))
@@ -27,11 +29,11 @@ public class Vector extends Point{
 	public boolean equals(Object obj) {
 	if (this == obj) return true;
 	return (obj instanceof Vector other) 
-		    && this.xyz.equals(other.xyz);
+		    && super.equals(other);
 	}
 	
 	@Override
-	public String toString() { return "Vector [" + super.toString() + "]"; }
+	public String toString() { return "->" + super.toString(); }
 	
 	/** Vector addition
 	 * @param v second vector
@@ -82,7 +84,5 @@ public class Vector extends Point{
 	 * @return a normalized new vector in the same direction as the original vector */
 	public Vector normalize() {
 		return new Vector(this.xyz.scale(1/this.length()));
-	}
-	
-	
+	}	
 }

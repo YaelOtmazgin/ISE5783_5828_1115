@@ -4,9 +4,9 @@ import primitives.Point;
 import primitives.Vector;
 
 /** Sphere class represents sphere in 3D Cartesian coordinate system */
-public class Sphere extends RadialGeometry{
+public class Sphere extends RadialGeometry {
 	// the sphere's center point
-	private Point center;
+	private final Point center;
 	
 	/** Sphere constructor based on center point and radius
 	 * @param center Point
@@ -24,5 +24,4 @@ public class Sphere extends RadialGeometry{
 
 	@Override
 	public String toString() { return "Sphere [center=" + center.toString() + ", radius=" + radius + "]"; }
-
-	}
+}

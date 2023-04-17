@@ -24,17 +24,17 @@ public class Point {
 	public boolean equals(Object obj) {
 	if (this == obj) return true;
 	return (obj instanceof Point other) 
-		    && this.xyz.equals(other.xyz);
+		    && xyz.equals(other.xyz);
 	}
 	
 	@Override
-	public String toString() { return "Point = " + xyz.toString(); }
+	public String toString() { return "" + xyz; }
 	
 	/** Vector subtraction 
 	 * @param p a second point
 	 * @return a vector from the second point to the point on which the operation is performed */
 	public Vector subtract(Point p) {
-		return new Vector (xyz.subtract(p.xyz));
+		return new Vector(xyz.subtract(p.xyz));
 	}
 	
 	/** Adding a vector to a point
@@ -48,9 +48,9 @@ public class Point {
 	 * @param p a second point
 	 * @return the distance between 2 points squared */
 	public double distanceSquared(Point p) {
-		return (this.xyz.d1 - p.xyz.d1) * (this.xyz.d1 - p.xyz.d1) +
-			   (this.xyz.d2 - p.xyz.d2) * (this.xyz.d2 - p.xyz.d2) +
-			   (this.xyz.d3 - p.xyz.d3) * (this.xyz.d3 - p.xyz.d3);
+		return (xyz.d1 - p.xyz.d1) * (xyz.d1 - p.xyz.d1) +
+			   (xyz.d2 - p.xyz.d2) * (xyz.d2 - p.xyz.d2) +
+			   (xyz.d3 - p.xyz.d3) * (xyz.d3 - p.xyz.d3);
 	}
 	
 	/** Calculate the distance between 2 points
@@ -58,6 +58,5 @@ public class Point {
 	 * @return distance between 2 points */
 	public double distance(Point p) {
 		return Math.sqrt(this.distanceSquared(p));
-	}
-	
+	}	
 }

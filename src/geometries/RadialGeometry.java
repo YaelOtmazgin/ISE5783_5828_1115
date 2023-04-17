@@ -6,7 +6,7 @@ import primitives.Vector;
  * @author MENUHA */
 public abstract class RadialGeometry implements Geometry {
 	/** radius */
-	protected double radius;
+	protected final double radius;
 	
 	/** RadialGeometry constructor based on radius
 	 * @param radius value */

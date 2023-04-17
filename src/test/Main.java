@@ -1,4 +1,4 @@
-/** Menuha Peleg 208095828 menuhapeleg@gmail.com
+/** Menuha Peleg 208095828 menuha@g.jct.ac.il
  * Yael Otmazgin 212531115  
  */
 package test;

@@ -6,7 +6,7 @@ import primitives.Vector;
 
 public class Tube extends RadialGeometry {
 	/** The tube's ray */
-	protected Ray axisRay;
+	protected final Ray axisRay;
 	
 	/** Tube constructor based on axis ray and radius
 	 * @param axisRay Ray
@@ -30,5 +30,4 @@ public class Tube extends RadialGeometry {
 	public String toString() {
 		return "Tube [axisRay=" + axisRay.toString() + ", radius=" + radius + "]";
 	}
-	
 }

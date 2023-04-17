@@ -5,8 +5,8 @@ import primitives.Vector;
 
 /** The plane class represents a two-dimensional plane in 3D Cartesian coordinate system */
 public class Plane implements Geometry {
-	private Point q0;
-	private Vector normal;
+	private final Point q0;
+	private final Vector normal;
 	
 	/** Plane constructor which calculate the normal to the triangle
 	 * @param p1 Point
