@@ -1,4 +1,3 @@
-
 /** Menuha Peleg 208095828 menuha@g.jct.ac.il
  * Yael Otmazgin 212531115 yaeli6688@gmail.com
  */
