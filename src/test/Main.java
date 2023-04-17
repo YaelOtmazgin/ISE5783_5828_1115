@@ -1,6 +1,5 @@
 /** Menuha Peleg 208095828 menuha@g.jct.ac.il
- * Yael Otmazgin 212531115  
- */
+ * Yael Otmazgin 212531115 yaeli6688@gmail.com */
 package test;
 
 import static java.lang.System.out;
