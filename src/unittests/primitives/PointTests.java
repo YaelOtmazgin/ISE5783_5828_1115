@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Vector;
 
+
 /**
  * Unit tests for primitives.Point class
  * Testing point
@@ -41,7 +42,7 @@ class PointTests {
 	void testAdd() {
 		// ============ Equivalence Partitions Tests ==============
 		//TC01: Testing addition between Point and Vector
-		assertTrue("ERROR: Point + Vector does not work correctly",p1.add(new Vector(-1, -2, -3)).equals(new Point(0, 0, 0)));
+		assertTrue("ERROR: Point + Vector does not work correctly", (p1.add(new Vector(-1, -2, -3)).equals(new Point(0, 0, 0))));
 	}
 
 	/**
