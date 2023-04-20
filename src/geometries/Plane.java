@@ -8,14 +8,25 @@ public class Plane implements Geometry {
 	private final Point q0;
 	private final Vector normal;
 	
-	/** Plane constructor which calculate the normal to the triangle
+	/** 
 	 * @param p1 Point
 	 * @param p2 Point
-	 * @param p3 Point */
+	 * @param p3 Point 
+	 * @throws IllegalArgumentException 
+	 * <li>When one of the points is similar to the other <li>When they are on the same straight line
+	 */
 	public Plane(Point p1, Point p2, Point p3) {
-		q0 = p1;
-		normal = null;
+		if(p1.equals(p3)||p1.equals(p2)||p2.equals(p3)){
+			throw new IllegalArgumentException("There are at least two merging points, Check them again!");
+		}
+		var v1=p2.subtract(p1);
+		var v2=p3.subtract(p1);
+		normal=v1.crossProduct(v2).normalize();
+		this.q0 = p1;
+		
 	}
+	
+	
 	
 	/** Plane constructor receiving a Point and a Vector
 	 * @param p Point
