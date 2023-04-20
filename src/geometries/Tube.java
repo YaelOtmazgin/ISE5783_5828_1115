@@ -27,7 +27,7 @@ public class Tube extends RadialGeometry {
 		Vector v = this.axisRay.getDir();
 		Point p0 = this.axisRay.getP0();
 		double t = v.dotProduct(point.subtract(p0));
-		Point o = p0.add(v.scale(t));
+		Point o = p0.add(v.scale(t)); 
 		if(Util.isZero(t))
 			throw new IllegalArgumentException("point is in front of the head Ray");
 		Vector normal = point.subtract(o);
