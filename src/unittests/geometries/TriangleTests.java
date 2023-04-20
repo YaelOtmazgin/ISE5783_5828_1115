@@ -10,15 +10,11 @@ import org.junit.jupiter.api.Test;
 import primitives.*;
 import geometries.*;
 
-/**
- * @author Dell
- *
- */
+/** Unit tests for geometries.Triangle class
+ * @author Yael */
 class TriangleTests {
 
-	/**
-	 * Test method for {@link geometries.Triangle#getNormal(primitives.Point)}.
-	 */
+	/** Test method for {@link geometries.Triangle#getNormal(primitives.Point)}. */
 	@Test
 	void testGetNormal() {
 		//Inherits from the polygon

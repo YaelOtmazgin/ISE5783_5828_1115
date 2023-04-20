@@ -1,5 +1,4 @@
 package unittests.geometries;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -13,7 +12,7 @@ import geometries.Polygon;
 import primitives.Point;
 import primitives.Vector;
 
-/** Testing Polygons
+/** Unit tests for geometries.Polygon class
  * @author Dan */
 public class PolygonTests {
 
