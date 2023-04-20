@@ -20,7 +20,10 @@ public class Sphere extends RadialGeometry {
 	public Point getCenter() { return center; }
 	
 	@Override
-	public Vector getNormal(Point point) { return null; }
+	public Vector getNormal(Point point) {
+		Vector v = point.subtract(center);
+		return v.normalize();
+	}
 
 	@Override
 	public String toString() { return "Sphere [center=" + center.toString() + ", radius=" + radius + "]"; }

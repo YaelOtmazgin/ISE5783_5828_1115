@@ -16,7 +16,7 @@ class PointTests {
 	void testSubtract() {
 		// ============ Equivalence Partitions Tests ==============
 		//TC01: Testing subtraction between two Points
-		assertTrue("ERROR: Point - Point does not work correctly", new Vector(1,1,1).equals(new Point(0,0,0).subtract(p1)));	
+		assertTrue("ERROR: Point - Point does not work correctly", new Vector(1, 1, 1).equals(new Point(0, 0, 0).subtract(p1)));	
 	}
 
 	/** Test method for {@link primitives.Point#add(primitives.Vector)}. */

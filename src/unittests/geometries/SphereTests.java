@@ -21,6 +21,5 @@ class SphereTests {
 		}
 		catch(IllegalArgumentException e) {
 		}
-		fail("Not yet implemented");
 	}
 }

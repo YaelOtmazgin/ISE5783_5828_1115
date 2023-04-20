@@ -24,7 +24,7 @@ class VectorTest {
 		
 		// =============== Boundary Values Tests ==================
 		//TC11: Testing addition of zero vector result (Vector - itself).
-		assertThrows(IllegalArgumentException.class, ()-> v1.add(new Vector(-1,-2,-3)), "ERROR: the result is (0,0,0)");
+		assertThrows(IllegalArgumentException.class, ()-> v1.add(new Vector(-1, -2, -3)), "ERROR: the result is (0,0,0)");
 	}
 
 	/** Test method for {@link primitives.Vector#scale(double)}. */
@@ -91,9 +91,7 @@ class VectorTest {
 	}
 	
 	
-	/**
-	 * Test method for {@link primitives.Point#subtract(primitives.Vector)}.
-	 */
+	/** Test method for {@link primitives.Point#subtract(primitives.Vector)}. */
 	@Test
 	void testSubtract() {
 		// The definition of subtract in Vector was transferred to Point
