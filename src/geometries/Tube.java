@@ -2,6 +2,7 @@ package geometries;
 
 import primitives.Point;
 import primitives.Ray;
+import primitives.Util;
 import primitives.Vector;
 
 public class Tube extends RadialGeometry {
@@ -27,6 +28,8 @@ public class Tube extends RadialGeometry {
 		Point p0 = this.axisRay.getP0();
 		double t = v.dotProduct(point.subtract(p0));
 		Point o = p0.add(v.scale(t));
+		if(Util.isZero(t))
+			throw new IllegalArgumentException("point is in front of the head Ray");
 		Vector normal = point.subtract(o);
 		return normal.normalize();
 	}
