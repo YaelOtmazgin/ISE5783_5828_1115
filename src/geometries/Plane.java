@@ -52,7 +52,6 @@ public class Plane implements Geometry {
 	}
 
 
-
 	@Override
 	public List<Point> findIntsersections(Ray ray) {
 		// TODO Auto-generated method stub

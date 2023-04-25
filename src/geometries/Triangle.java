@@ -1,5 +1,7 @@
 package geometries;
 
+import java.util.List;
+
 import primitives.*;
 
 /** Triangle class represents a two-dimensional polygon with 3 points 
@@ -20,5 +22,11 @@ public class Triangle extends Polygon {
 			   "point1= " + vertices.get(1).toString() +
 			   "point2= " + vertices.get(2).toString() +"]";
 	}
+	
+	@Override
+	public List<Point> findIntsersections(Ray ray){
+		// TODO Auto-generated method stub
+		   return null;
+	}	   
 }
 
