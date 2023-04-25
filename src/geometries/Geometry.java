@@ -1,10 +1,9 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Vector;
+import primitives.*;
 
 /** Interface for representing any geometric shape */
-public interface Geometry {
+public interface Geometry extends Intersectable {
 	/** Find the normal (vertical) vector to the geometric shape at point p.
 	 * @param p is a one point-type parameter [across the geometric shape]
 	 * @return the normal vector on the given point. */

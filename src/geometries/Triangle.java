@@ -1,7 +1,6 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Vector;
+import primitives.*;
 
 /** Triangle class represents a two-dimensional polygon with 3 points 
  * in 3D Cartesian coordinate system */

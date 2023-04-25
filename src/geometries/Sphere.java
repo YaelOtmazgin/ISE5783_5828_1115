@@ -1,7 +1,8 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Vector;
+import java.util.List;
+
+import primitives.*;
 
 /** Sphere class represents sphere in 3D Cartesian coordinate system */
 public class Sphere extends RadialGeometry {
@@ -27,4 +28,10 @@ public class Sphere extends RadialGeometry {
 
 	@Override
 	public String toString() { return "Sphere [center=" + center.toString() + ", radius=" + radius + "]"; }
+
+	@Override
+	public List<Point> findIntsersections(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
