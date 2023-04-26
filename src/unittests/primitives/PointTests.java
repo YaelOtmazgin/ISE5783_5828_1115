@@ -30,22 +30,21 @@ class PointTests {
 
 	/** Test method for {@link primitives.Point#distanceSquared(primitives.Point)}. */
 	@Test
-	void testDistanceSquared() {// ============ Equivalence Partitions Tests ==============
+	void testDistanceSquared() {
+		// ============ Equivalence Partitions Tests ==============
 		//the squared distance between two points
 		Point p1 = new Point(1, 2, 3);
-		Point p2 = new Point(2,3,4);
+		Point p2 = new Point(2, 3, 4);
 		assertTrue("ERROR: distanceSquared() wrong value", isZero(p1.distanceSquared(p2) - 3));
 	}
 
-	/**
-	 * Test method for {@link primitives.Point#distance(primitives.Point)}.
-	 */
+	/** Test method for {@link primitives.Point#distance(primitives.Point)}. */
 	@Test
 	void testDistance() {
 		// ============ Equivalence Partitions Tests ==============
 		//the distance between two points
-		Point p1=new Point(0,6,8);
-		Point p2=new Point(0,3,4);
+		Point p1 = new Point(0, 6, 8);
+		Point p2 = new Point(0, 3, 4);
 		assertTrue("ERROR: distance() wrong value", isZero(p1.distance(p2) - 5));
 	}
 }

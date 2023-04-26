@@ -27,10 +27,9 @@ public class Ray {
 		return dir;
 	}
 	
-	/** a function that calculate a vector with its length, from the point p0
+	/** a function that calculate apoint on the ray
 	 * @param t scaler
-	 * @return vector
-	 */
+	 * @return vector */
 	public Point getPoint(double t) {
 		return p0.add(dir.scale(t));
 	}
