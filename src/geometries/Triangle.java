@@ -3,6 +3,7 @@ package geometries;
 import java.util.List;
 
 import primitives.*;
+import static primitives.Util.*;
 
 /** Triangle class represents a two-dimensional polygon with 3 points 
  * in 3D Cartesian coordinate system */
@@ -24,9 +25,8 @@ public class Triangle extends Polygon {
 	}
 	
 	@Override
-	public List<Point> findIntsersections(Ray ray){
-		// TODO Auto-generated method stub
-		   return null;
+	public List<Point> findIntersections(Ray ray) {
+		return null;
 	}	   
 }
 

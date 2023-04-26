@@ -27,6 +27,14 @@ public class Ray {
 		return dir;
 	}
 	
+	/** a function that calculate a vector with its length, from the point p0
+	 * @param t scaler
+	 * @return vector
+	 */
+	public Point getPoint(double t) {
+		return p0.add(dir.scale(t));
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 	if (this == obj) return true;
