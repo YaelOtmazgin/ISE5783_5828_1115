@@ -3,6 +3,7 @@ package geometries;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,28 +17,29 @@ public class Geometries implements Intersectable {
 	
 	/** Default constructor */
 	public Geometries() {
-		super();
-		// we chosen in ArrayList because this class works better when the application demands storing the data and accessing it.
-		sceneGeometries = new ArrayList<Intersectable>();
+		sceneGeometries = new LinkedList<Intersectable>();
 	}
 	
 	/** parameters constructor
 	 * @param geometries types of geometries in the scene */
 	public Geometries(Intersectable... geometries){
-		sceneGeometries =  new ArrayList<Intersectable>(Arrays.asList(geometries));
+		sceneGeometries =  List.of(geometries);
 	}
 
 	@Override
 	public List<Point> findIntersections(Ray ray) {
-		List<Point> temp = new ArrayList<Point>();
-		for (Intersectable intersectable : sceneGeometries) {
-			List<Point> intersection = intersectable.findIntersections(ray);
-			if (intersection != null)
-				temp.addAll(intersection); 
-		}	
-		if (temp.isEmpty())
-			return null;
-		return temp;
+		List<Point> points = null;
+		if (sceneGeometries != null) {			
+			for (var shape: sceneGeometries) {
+				var result = shape.findIntersections(ray);
+				if (result != null)
+					if (points == null)
+						points = new LinkedList<Point>(result);
+					else
+						points.addAll(result);
+			}
+		}
+		return points;
 	}
 
 	@Override
@@ -52,17 +54,11 @@ public class Geometries implements Intersectable {
 		return Objects.equals(sceneGeometries, other.sceneGeometries);
 	}
 	
-	/** a function that returns an iterator to the geometries
-	 * @return an iterator */
-	public Iterator<Intersectable> iterator(){
-		return sceneGeometries.iterator();
-	}
-	
 	/** a function that adds a new geometry to the scene
-	 * @param geometries */
+	 * @param geometries list of geometries to add*/
 	public void add(Intersectable... geometries){
 		if (geometries != null)
-			sceneGeometries.addAll(Arrays.asList(geometries));	
+			sceneGeometries.addAll(List.of(geometries));	
 	}
 	
 	/** a function that returns the geometries

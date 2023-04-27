@@ -34,13 +34,19 @@ public class Plane implements Geometry {
 	}
 	
 	/** @return the plane's point */
-	public Point getQ0() { return q0; }
+	public Point getQ0() { 
+		return q0; 
+	}
 	
 	/** @return the plane's normal */
-	public Vector getNormal() { return normal; }
+	public Vector getNormal() { 
+		return normal; 
+	}
 
 	@Override
-	public Vector getNormal(Point point) { return normal; }
+	public Vector getNormal(Point point) { 
+		return normal; 
+	}
 	
 	@Override
 	public String toString() {
@@ -50,18 +56,18 @@ public class Plane implements Geometry {
 	@Override
 	public List<Point> findIntersections(Ray ray) {
 		double nv = normal.dotProduct(ray.getDir());
-		if (isZero(nv)) {
-			return null;
-		}		
+		if (isZero(nv))
+			return null;		
 		try {
-			Vector pSubtractQ0 = q0.subtract(ray.getP0());
-			double t = alignZero((normal.dotProduct(pSubtractQ0))/nv);
-			if(t <= 0)
-				return null;
-			return List.of(ray.getPoint(t));
+			Vector sub = q0.subtract(ray.getP0());
+			double t = alignZero((normal.dotProduct(sub))/nv);
+			if(t > 0) {
+				var p1 = ray.getPoint(t);
+				return List.of(p1);
+			}			
 		} catch(Exception ex) {
-			return null;	
+			return null;
 		}
+		return null;
 	}
-
 }

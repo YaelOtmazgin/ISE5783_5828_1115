@@ -2,9 +2,11 @@ package geometries;
 
 import static primitives.Util.isZero;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import primitives.*;
+import static primitives.Util.*;
 
 /** Polygon class represents two-dimensional polygon in 3D Cartesian coordinate
  * system
@@ -80,8 +82,39 @@ public class Polygon implements Geometry {
    public Vector getNormal(Point point) { return plane.getNormal(); }
 
    @Override
-   public List<Point> findIntersections(Ray ray) {
-	   // TODO Auto-generated method stub
-	   return null;
-   }
+	public List<Point> findIntersections(Ray ray) {
+		var myList = plane.findIntersections(ray);
+		if (myList == null)
+			return null;
+		var dir=ray.getDir();
+
+		var p0=ray.getP0();
+		var vectors = new LinkedList<Vector>();
+		for (var vertice : vertices)
+			vectors.add(vertice.subtract(p0));
+
+		var normals = new LinkedList<Vector>();
+		for (int i = 0; i < vectors.size() - 1; i++) {
+			normals.add(vectors.get(i).crossProduct(vectors.get(i + 1)));
+		}
+		normals.add(vectors.getLast().crossProduct(vectors.getFirst()));
+		
+		Boolean isPositive = false, isNegative = false;
+		for (var normal: normals) {
+			var result = alignZero(normal.dotProduct(dir));
+			if (result != 0) {
+				if (result > 0) {
+					isPositive = true;
+					if (isNegative == true)
+						return null;
+				} else if (result < 0) {
+					isNegative = true;
+					if (isPositive == true) 
+						return null;
+				}
+			} else
+				return null;
+		}
+		return myList;
+	}
 }
