@@ -8,7 +8,7 @@ import geometries.*;
 import static primitives.Util.isZero;
 
 /** Unit tests for primitives.Point class
- * @author Yael */
+ * @author MENUHA and Yael */
 class PointTests {
 	//By the test.Main we needed to test: subtract, add. 
 	Point p1 = new Point(1, 2, 3); 	

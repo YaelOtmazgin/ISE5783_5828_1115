@@ -2,7 +2,7 @@ package primitives;
 
 /** Semi-Straight - All the points on the line that are on one side of the given point on the line 
  * called the beginning / head of the ray
- * @author MENUHA */
+ * @author MENUHA and Yael */
 public class Ray {
 	// Head of the ray
 	private final Point p0;

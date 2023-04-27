@@ -6,7 +6,8 @@ import primitives.*;
 import static primitives.Util.*;
 
 /** Triangle class represents a two-dimensional polygon with 3 points 
- * in 3D Cartesian coordinate system */
+ * in 3D Cartesian coordinate system 
+ * @author MENUHA and Yael */
 public class Triangle extends Polygon {
 	/** Triangle constructor based on 3 points. The points must be ordered by edge path.
 	 * @param p1 Point

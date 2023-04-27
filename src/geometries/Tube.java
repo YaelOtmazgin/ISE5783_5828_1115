@@ -4,6 +4,8 @@ import java.util.List;
 
 import primitives.*;
 
+/** A class representing a Tube in a three-dimensional Cartesian system
+ * @author MENUHA and Yael */
 public class Tube extends RadialGeometry {
 	/** The tube's ray */
 	protected final Ray axisRay;

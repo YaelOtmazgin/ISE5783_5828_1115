@@ -9,7 +9,7 @@ import primitives.*;
 import geometries.*;
 
 /** Unit tests for geometries.Sphere class
- * @author Yael */
+ * @author MENUHA and Yael */
 class SphereTests {
 
 	/** Test method for {@link geometries.Sphere#getNormal(primitives.Point)}. */

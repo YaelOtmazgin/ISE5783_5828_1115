@@ -7,7 +7,7 @@ import primitives.*;
 import geometries.*;
 
 /** Unit tests for geometries.Plane class
- * @author Yael */
+ * @author MENUHA and Yael */
 class PlaneTests {
 	@Test
 	public void testConstructor() {

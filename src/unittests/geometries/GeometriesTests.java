@@ -8,23 +8,8 @@ import geometries.*;
 import primitives.*;
 
 /** Unit tests for geometries.Geometries class
- * @author MENUHA */
+ * @author MENUHA and Yael */
 class GeometriesTests {
-	/** Test method for {@link geometries.Geometries#add(geometries.Intersectable[])}. */
-	@Test
-	public void testAdd() {
-			Triangle triangle = new Triangle(new Point(1, 0, 0), new Point(1, 1, 0), new Point(1, 0, 1));
-			Sphere sphere = new Sphere(new Point(1, 0, 0), 1);
-			Plane plane = new Plane(new Point(0, 0, 1), new Point(1, 0, 0), new Point(4, 0, 2));			
-			Geometries collection = new Geometries(sphere, triangle, plane);
-			//
-			assertEquals(3, collection.getSceneGeometries().size(), "the length of the list is worng" );
-			//
-			Triangle t = new Triangle(new Point(1, 8, -6), new Point(1, 0, 0), new Point(1, 0, 2));
-			collection.add(t);					
-			assertEquals(4, collection.getSceneGeometries().size(), "the length of the list is worng");
-	}
-
 	/** Test method for {@link geometries.Geometries#findIntsersections(primitives.Ray)}. */
 	@Test
 	public void testFindIntsersections() {

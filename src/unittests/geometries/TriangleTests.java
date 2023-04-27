@@ -11,7 +11,7 @@ import primitives.*;
 import geometries.*;
 
 /** Unit tests for geometries.Triangle class
- * @author Yael */
+ * @author MENUHA and Yael */
 class TriangleTests {
 
 	/** Test method for {@link geometries.Triangle#getNormal(primitives.Point)}. */

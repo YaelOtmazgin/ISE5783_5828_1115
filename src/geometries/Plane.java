@@ -5,12 +5,13 @@ import java.util.List;
 import primitives.*;
 import static primitives.Util.*;
 
-/** The plane class represents a two-dimensional plane in 3D Cartesian coordinate system */
+/** The plane class represents a two-dimensional plane in 3D Cartesian coordinate system 
+ * @author MENUHA and Yael*/
 public class Plane implements Geometry {
 	private final Point q0;
 	private final Vector normal;
 	
-	/**  @param p1 Point
+	/** @param p1 Point
 	 * @param p2 Point
 	 * @param p3 Point 
 	 * @throws IllegalArgumentException 
