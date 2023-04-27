@@ -19,7 +19,9 @@ public class Sphere extends RadialGeometry {
 	}
 	
 	/** @return the sphere's center point */
-	public Point getCenter() { return center; }
+	public Point getCenter() { 
+		return center; 
+	}
 	
 	@Override
 	public Vector getNormal(Point point) {
@@ -28,7 +30,9 @@ public class Sphere extends RadialGeometry {
 	}
 
 	@Override
-	public String toString() { return "Sphere [center=" + center.toString() + ", radius=" + radius + "]"; }
+	public String toString() { 
+		return "Sphere [center=" + center.toString() + ", radius=" + radius + "]"; 
+	}
 
 	@Override
 	public List<Point> findIntersections(Ray ray) {

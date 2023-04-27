@@ -86,9 +86,9 @@ public class Polygon implements Geometry {
 		var myList = plane.findIntersections(ray);
 		if (myList == null)
 			return null;
-		var dir=ray.getDir();
+		var dir = ray.getDir();
 
-		var p0=ray.getP0();
+		var p0 = ray.getP0();
 		var vectors = new LinkedList<Vector>();
 		for (var vertice : vertices)
 			vectors.add(vertice.subtract(p0));
