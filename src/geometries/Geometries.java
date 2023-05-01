@@ -11,7 +11,7 @@ import primitives.Point;
 import primitives.Ray;
 
 /** A class for a collection of geometric shapes
- * @author MENUHA and Yael */
+ * @author Menuha and Yael */
 public class Geometries implements Intersectable {	
 	private List<Intersectable> sceneGeometries;
 	

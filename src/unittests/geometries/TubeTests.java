@@ -5,7 +5,7 @@ import primitives.*;
 import geometries.*;
 
 /** Unit tests for geometries.Tube class 
- * @author MENUHA and Yael */
+ * @author Menuha and Yael */
 class TubeTests {
 	/** Test method for {@link geometries.Tube#getNormal(primitives.Point)}. */
 	@Test

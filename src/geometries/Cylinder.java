@@ -6,7 +6,7 @@ import static primitives.Util.*;
 import primitives.Vector;
 
 /** Cylinder class represents a finite cylinder in 3D Cartesian coordinate system 
- * @author MENUHA and Yael */
+ * @author Menuha and Yael */
 public class Cylinder extends Tube {
 	// The cylinder's height
 	private final double height;

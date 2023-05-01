@@ -6,7 +6,7 @@ import primitives.*;
 import static primitives.Util.*;
 
 /** Sphere class represents sphere in 3D Cartesian coordinate system 
- * @author MENUHA and Yael*/
+ * @author Menuha and Yael*/
 public class Sphere extends RadialGeometry {
 	// the sphere's center point
 	private final Point center;

@@ -8,7 +8,7 @@ import geometries.*;
 import primitives.*;
 
 /** Unit tests for geometries.Geometries class
- * @author MENUHA and Yael */
+ * @author Menuha and Yael */
 class GeometriesTests {
 	/** Test method for {@link geometries.Geometries#findIntsersections(primitives.Ray)}. */
 	@Test

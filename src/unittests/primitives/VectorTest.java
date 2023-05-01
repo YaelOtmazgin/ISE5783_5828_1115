@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import primitives.Vector;
 
 /** Unit tests for primitives.Vector class 
- * @author MENUHA and Yael */
+ * @author Menuha and Yael */
 class VectorTest {
 	Vector v1 = new Vector(1, 2, 3);
     Vector v2 = new Vector(-2, -4, -6);

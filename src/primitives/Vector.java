@@ -3,7 +3,7 @@ package primitives;
 
 /** Vector class represents a fundamental object in geometry with direction and size, 
  * defined by the end point (when the starting point - the beginning of the axes).
- * @author MENUHA and Yael */
+ * @author Menuha and Yael */
 public class Vector extends Point {
 	/** Constructor to initialize Vector based object with its three number values
 	 * @param d1 first number value

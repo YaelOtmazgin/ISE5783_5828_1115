@@ -1,7 +1,7 @@
 package primitives;
 
 /** Point class represents a point in space - a fundamental object in geometry - a point with 3 coordinates
- * @author MENUHA and Yael */
+ * @author Menuha and Yael */
 public class Point {
 	/** Three numbers */
 	final Double3 xyz;
