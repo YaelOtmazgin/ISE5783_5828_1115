@@ -11,7 +11,7 @@ public class Point {
 	 * @param d2 second number value
 	 * @param d3 third number value */
 	public Point(double d1, double d2, double d3) {
-	    xyz = new Double3(d1,d2,d3);
+	    xyz = new Double3(d1, d2, d3);
 	}
 	   
 	/** Constructor to initialize Point based object with Double3 object
@@ -20,14 +20,17 @@ public class Point {
 		this.xyz = xyz; // new Double3(xyz.d1, xyz.d2, xyz.d3);
 	}
 	
+	/** @return x value of the xyz point */
 	public double getX() {
 		return xyz.d1;
 	}
 
+	/** @return y value of the xyz point */
 	public double getY() {
 		return xyz.d2;
 	}
 
+	/** @return z value of the xyz point */
 	public double getZ() {
 		return xyz.d3;
 	}

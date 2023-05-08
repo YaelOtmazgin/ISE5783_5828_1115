@@ -1,5 +1,7 @@
 package renderer;
 
+import java.util.MissingResourceException;
+
 import primitives.*;
 
 /** Shoot rays from the center of projection through the view plane pixels for
@@ -13,6 +15,8 @@ public class Camera {
 	private double width;
 	private double height;
 	private double distance;
+	private ImageWriter imageWriter;
+	private RayTracerBase rayTracer;
 
 	/** Location of the camera lens
 	 * @return the p0 a location of the camera lens */
@@ -97,4 +101,75 @@ public class Camera {
 
 		return new Ray(p0, vij);
 	}
+	
+	/** sets imageWriter value
+	 * @param imageWriter - new imageWriter value
+	 * @return the camera itself */
+	public Camera setImageWriter(ImageWriter imageWriter){
+		this.imageWriter = imageWriter;
+		return this;
+	}
+	
+	/** sets rayTracer
+	 * @param rayTracer - new rayTracer value
+	 * @return the camera itself */
+	public Camera setRayTracer(RayTracerBase rayTracer){
+		this.rayTracer = rayTracer;
+		return this;
+	}
+	
+	/**
+	 * 
+	 */
+	public void renderImage () {
+		if (this == null)
+			throw new MissingResourceException("this function must have values in all fields", "Camera", "camera");
+		if (imageWriter == null)
+			throw new MissingResourceException("this function must have values in all fields", "ImageWriter", "imageWriter");
+		if (rayTracer == null)
+			throw new MissingResourceException("this function must have values in all fields", "RayTracerBase", "rayTracer");
+		
+		for (int i = 0; i < imageWriter.getNx(); i++) {
+			for (int j = 0; j < imageWriter.getNy(); j++) {
+				Color rayColor = castRay(j, i);
+				imageWriter.writePixel(j, i, rayColor); 
+			}
+		}
+	}
+	
+	/**  
+	 * @param j
+	 * @param i
+	 * @return */
+	private Color castRay(int j, int i) {
+		Ray ray = this.constructRay(imageWriter.getNx(), imageWriter.getNy(), j, i);
+		Color rayColor = rayTracer.traceRay(ray);
+		return rayColor;
+	}
+	
+	/** A function that creates a grid of lines
+	 * @param interval int value
+	 * @param color Color value */
+	public void printGrid(int interval, Color color) {
+		if (imageWriter == null)
+			throw new MissingResourceException("this function must have values in all fields", "ImageWriter", "imageWriter");
+		
+		for (int i = 0; i < imageWriter.getNx(); i++) {
+			for (int j = 0; j < imageWriter.getNy(); j++) {
+				if(i % interval == 0 || j % interval == 0)
+					imageWriter.writePixel(i, j, color); 
+			}
+		}
+	}
+	
+	/** A function that finally creates the image.
+	 * This function delegates the function of a class imageWriter */
+	public void writeToImage()
+	{
+		if (imageWriter == null)
+			throw new MissingResourceException("this function must have values in all fields", "ImageWriter", "imageWriter");
+		
+		imageWriter.writeToImage();
+	}
+	
 }

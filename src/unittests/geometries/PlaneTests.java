@@ -9,6 +9,7 @@ import geometries.*;
 /** Unit tests for geometries.Plane class
  * @author Menuha and Yael */
 class PlaneTests {
+	/** Test method for {@link geometries.Plane#Plane(primitives.Point, primitives.Point, primitives.Point)}. */
 	@Test
 	public void testConstructor() {
 		// ============ Equivalence Partitions Tests ==============
