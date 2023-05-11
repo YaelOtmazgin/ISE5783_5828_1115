@@ -99,12 +99,12 @@ public class RenderTests {
 	//	Scene scene = new Scene("XML Test scene");
 	//	// enter XML file name and parse from XML file into scene object
 	//	// ...
-	//	SceneBuilder sceneBuilder=new SceneBuilder(scene);
-	//	sceneBuilder.loadSceneFromFile("basicRenderTestTwoColors.xml");
+	//*	SceneBuilder sceneBuilder=new SceneBuilder(scene);
+	//*	sceneBuilder.loadSceneFromFile("basicRenderTestTwoColors.xml");
 	//	ImageWriter imageWriter = new ImageWriter("xml render test", 1000, 1000);
 	//	Render render = new Render() //
 	//			.setImageWriter(imageWriter) //
-	//			.setScene(scene) //
+	//*			.setScene(scene) //
 	//			.setCamera(camera) //
 	//			.setRayTracer(new RayTracerBasic(scene));
 
