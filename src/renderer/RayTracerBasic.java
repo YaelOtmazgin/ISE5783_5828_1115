@@ -9,7 +9,7 @@ import scene.Scene;
  * @author Menuha and Yael */
 public class RayTracerBasic extends RayTracerBase {
 
-	/** 
+	/** constructor that operate its parent's constructor
 	 * @param scene - shape that build from geometries shapes, color and ambientLight */
 	public RayTracerBasic(Scene scene) {
 		super(scene);
@@ -25,7 +25,7 @@ public class RayTracerBasic extends RayTracerBase {
 		return calcColor(closestPoint);
 	}
 
-	/** Calculates the color of a point giving
+	/** Calculates the color of a given point 
 	 * @param point - point on image
 	 * @return the color in this point */
 	private Color calcColor(Point point) {

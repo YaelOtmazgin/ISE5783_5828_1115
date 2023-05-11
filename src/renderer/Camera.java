@@ -2,6 +2,8 @@ package renderer;
 
 import java.util.MissingResourceException;
 
+//import java.util.MissingResourceException;
+
 import primitives.*;
 
 /** Shoot rays from the center of projection through the view plane pixels for
@@ -110,7 +112,7 @@ public class Camera {
 		return this;
 	}
 	
-	/** sets rayTracer
+	/** sets rayTracer value
 	 * @param rayTracer - new rayTracer value
 	 * @return the camera itself */
 	public Camera setRayTracer(RayTracerBase rayTracer){
@@ -118,9 +120,8 @@ public class Camera {
 		return this;
 	}
 	
-	/**
-	 * 
-	 */
+	/** The function defines every pixel's color
+	 * @throws MissingResourceException if one of the fields is empty */
 	public void renderImage () {
 		if (this == null)
 			throw new MissingResourceException("this function must have values in all fields", "Camera", "camera");
@@ -128,7 +129,7 @@ public class Camera {
 			throw new MissingResourceException("this function must have values in all fields", "ImageWriter", "imageWriter");
 		if (rayTracer == null)
 			throw new MissingResourceException("this function must have values in all fields", "RayTracerBase", "rayTracer");
-		
+		//throw new UnsupportedOperationException();
 		for (int i = 0; i < imageWriter.getNx(); i++) {
 			for (int j = 0; j < imageWriter.getNy(); j++) {
 				Color rayColor = castRay(j, i);
@@ -137,9 +138,9 @@ public class Camera {
 		}
 	}
 	
-	/**  
-	 * @param j
-	 * @param i
+	/** returns color of pixel in current tracing ray
+	 * @param j  - the pixel's index in the column
+	 * @param i  - the pixel's index in the row
 	 * @return */
 	private Color castRay(int j, int i) {
 		Ray ray = this.constructRay(imageWriter.getNx(), imageWriter.getNy(), j, i);
@@ -164,8 +165,7 @@ public class Camera {
 	
 	/** A function that finally creates the image.
 	 * This function delegates the function of a class imageWriter */
-	public void writeToImage()
-	{
+	public void writeToImage() {
 		if (imageWriter == null)
 			throw new MissingResourceException("this function must have values in all fields", "ImageWriter", "imageWriter");
 		

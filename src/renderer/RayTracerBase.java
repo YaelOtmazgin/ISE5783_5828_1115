@@ -6,7 +6,7 @@ import scene.Scene;
 /** An abstract base class responsible for tracking the ray
  * @author Menuha and Yael */
 public abstract class RayTracerBase {
-	
+	/** scene value */
 	protected Scene scene;
 
 	/** Ctor - get scene and set it
