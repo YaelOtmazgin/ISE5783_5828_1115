@@ -20,6 +20,7 @@ import primitives.*;
 /** A class responsible for constructing a scene from an xml file using API of DOM
  * @author Menuha and Yael */
 public class SceneBuilder {
+	//need another field 
 
 	private Scene scene;
 	private static final String filePath = System.getProperty("user.dir") + "/xml/";

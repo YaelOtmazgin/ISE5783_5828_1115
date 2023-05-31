@@ -90,16 +90,16 @@ public class Camera {
 		var ry = height / nY;
 		var rx = width / nX;
 		// pixel(i,j) center
-		var yi = (i - (nY - 1) / 2.0) * ry;
-		var xj = (j - (nX - 1) / 2.0) * rx;
+		var yI = (i - (nY - 1) / 2.0) * ry;
+		var xJ = (j - (nX - 1) / 2.0) * rx;
 
-		Point pij = pc;
-		if (xj != 0)
-			pij = pij.add(vRight.scale(xj));
-		if (yi != 0)
-			pij = pij.add(vUp.scale(-yi));
+		Point pIJ = pc;
+		if (xJ != 0)
+			pIJ = pIJ.add(vRight.scale(xJ));
+		if (yI != 0)
+			pIJ = pIJ.add(vUp.scale(-yI));
 
-		Vector vij = pij.subtract(p0);
+		Vector vij = pIJ.subtract(p0);
 
 		return new Ray(p0, vij);
 	}
