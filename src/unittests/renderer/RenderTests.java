@@ -9,7 +9,7 @@ import geometries.Triangle;
 import lighting.AmbientLight;
 import primitives.*;
 import renderer.*;
-import scene.Scene;
+import scene.*;
 
 /** Test rendering a basic image
  * @author Dan */
@@ -85,6 +85,8 @@ public class RenderTests {
        // using the code you added in appropriate packages
        // ...
        // NB: unit tests is not the correct place to put XML parsing code
+	   SceneBuilder sceneBuilder=new SceneBuilder(scene);
+	   sceneBuilder.loadSceneFromFile("basicRenderTestTwoColors.xml");
    
        Camera camera = new Camera(new Point(0, 0, 0), new Vector(0, 0, -1), new Vector(0, 1, 0))     //
           .setVPDistance(100)                                                                //
