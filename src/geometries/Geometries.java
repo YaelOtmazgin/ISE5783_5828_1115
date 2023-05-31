@@ -12,7 +12,7 @@ import primitives.Ray;
 
 /** A class for a collection of geometric shapes
  * @author Menuha and Yael */
-public class Geometries implements Intersectable {	
+public class Geometries extends Intersectable {	
 	private List<Intersectable> sceneGeometries;
 	
 	/** Default constructor */

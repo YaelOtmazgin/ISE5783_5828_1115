@@ -7,7 +7,7 @@ import static primitives.Util.*;
 
 /** The plane class represents a two-dimensional plane in 3D Cartesian coordinate system 
  * @author Menuha and Yael*/
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 	private final Point q0;
 	private final Vector normal;
 	
