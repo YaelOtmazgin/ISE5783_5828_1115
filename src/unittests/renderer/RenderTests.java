@@ -77,7 +77,7 @@ public class RenderTests {
    // camera.writeToImage();
    // }
 
-   /** Test for XML based scene - for bonus */
+   /** Test for XML based scene - for bonus 
    @Test
    public void basicRenderXml() {
 	   Scene  scene  = new Scene("XML Test scene");
@@ -95,23 +95,23 @@ public class RenderTests {
        camera.renderImage();
        camera.printGrid(100, new Color(YELLOW));
        camera.writeToImage();
-   }
+   } 
 
-	//public void basicRenderXml() {
-	//	Scene scene = new Scene("XML Test scene");
-	//	// enter XML file name and parse from XML file into scene object
-	//	// ...
-	//*	SceneBuilder sceneBuilder=new SceneBuilder(scene);
-	//*	sceneBuilder.loadSceneFromFile("basicRenderTestTwoColors.xml");
-	//	ImageWriter imageWriter = new ImageWriter("xml render test", 1000, 1000);
-	//	Render render = new Render() //
-	//			.setImageWriter(imageWriter) //
-	//*			.setScene(scene) //
-	//			.setCamera(camera) //
-	//			.setRayTracer(new RayTracerBasic(scene));
+	public void basicRenderXml() {
+		Scene scene = new Scene("XML Test scene");
+		// enter XML file name and parse from XML file into scene object
+		// ...
+	*	SceneBuilder sceneBuilder=new SceneBuilder(scene);
+	*	sceneBuilder.loadSceneFromFile("basicRenderTestTwoColors.xml");
+		ImageWriter imageWriter = new ImageWriter("xml render test", 1000, 1000);
+		Render render = new Render() //
+				.setImageWriter(imageWriter) //
+	*			.setScene(scene) //
+				.setCamera(camera) //
+				.setRayTracer(new RayTracerBasic(scene));
 
-	//	render.renderImage();
-	//	render.printGrid(100, new Color(java.awt.Color.YELLOW));
-	//	render.writeToImage();
-	//}
+		render.renderImage();
+		render.printGrid(100, new Color(java.awt.Color.YELLOW));
+		render.writeToImage();
+	} */
 }
