@@ -2,6 +2,8 @@ package geometries;
 
 import java.util.List;
 
+import geometries.Intersectable.GeoPoint;
+
 import primitives.*;
 import static primitives.Util.*;
 
@@ -54,7 +56,7 @@ public class Plane extends Geometry {
 		return "Plane [q0=" + q0.toString() + ", normal=" + normal.toString() + "]";
 	}
 
-	@Override
+/*	@Override
 	public List<Point> findIntersections(Ray ray) {
 		double nv = normal.dotProduct(ray.getDir());
 		if (isZero(nv))
@@ -70,5 +72,24 @@ public class Plane extends Geometry {
 			return null;
 		}
 		return null;
+	}*/
+
+	@Override
+	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+		double nv = normal.dotProduct(ray.getDir());
+		if (isZero(nv))
+			return null;		
+		try {
+			Vector sub = q0.subtract(ray.getP0());
+			double t = alignZero((normal.dotProduct(sub))/nv);
+			if(t > 0) {
+				var p1 = ray.getPoint(t);
+				return List.of(new GeoPoint(this, p1));
+			}			
+		} catch(Exception ex) {
+			return null;
+		}
+		return null;
 	}
+
 }

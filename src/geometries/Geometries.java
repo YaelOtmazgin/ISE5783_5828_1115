@@ -1,8 +1,5 @@
 package geometries;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -26,7 +23,7 @@ public class Geometries extends Intersectable {
 		sceneGeometries =  List.of(geometries);
 	}
 
-	@Override
+/*	@Override
 	public List<Point> findIntersections(Ray ray) {
 		List<Point> points = null;
 		if (sceneGeometries != null) {			
@@ -41,7 +38,7 @@ public class Geometries extends Intersectable {
 		}
 		return points;
 	}
-
+*/
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -66,4 +63,22 @@ public class Geometries extends Intersectable {
 	public List<Intersectable> getSceneGeometries() {
 		return sceneGeometries;
 	}
+
+	@Override
+	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+		List<GeoPoint> points = null;
+		if (sceneGeometries != null) {			
+			for (var shape: sceneGeometries) {
+				var result = shape.findGeoIntersectionsHelper(ray);
+				if (result != null)
+					if (points == null)
+						points = new LinkedList<GeoPoint>(result);
+					else
+						points.addAll(result);
+			}
+		}
+		return points;
+	}
+
+	
 }
