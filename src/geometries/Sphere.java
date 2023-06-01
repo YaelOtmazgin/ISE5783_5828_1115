@@ -35,7 +35,7 @@ public class Sphere extends RadialGeometry {
 		return "Sphere [center=" + center.toString() + ", radius=" + radius + "]"; 
 	}
 
-	@Override
+/*	@Override
 	public List<Point> findIntersections(Ray ray) {
 		if (ray.getP0().equals(center)) // if the head of the ray is the center, the point p0 is on the radius
 			return List.of(ray.getPoint(radius));
@@ -57,7 +57,7 @@ public class Sphere extends RadialGeometry {
 			return List.of(ray.getPoint(t1));
 		else
 			return List.of(ray.getPoint(t2));
-	}
+	}*/
 
 	@Override
 	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {

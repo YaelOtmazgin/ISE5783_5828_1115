@@ -4,6 +4,7 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import scene.Scene;
+import geometries.Intersectable.GeoPoint;
 
 /** A basic class responsible for tracking the ray that inherits from RayTracerBase
  * @author Menuha and Yael */
@@ -18,17 +19,17 @@ public class RayTracerBasic extends RayTracerBase {
 
 	@Override
 	public Color traceRay(Ray ray) {
-		var intersections = scene.geometries.findIntersections(ray);
+		var intersections = scene.geometries.findGeoIntersections(ray);
 		if (intersections == null)
 			return scene.background;
-		Point closestPoint = ray.findClosestPoint(intersections);
-		return calcColor(closestPoint);
+		GeoPoint closestPoint = ray.findClosestGeoPoint(intersections);
+		return calcColor(closestPoint, ray);
 	}
 
 	/** Calculates the color of a given point 
 	 * @param point - point on image
 	 * @return the color in this point */
-	private Color calcColor(Point point) {
+	private Color calcColor(GeoPoint geo, Ray ray) {
 		return scene.ambientLight.getIntensity();
 	}
 }

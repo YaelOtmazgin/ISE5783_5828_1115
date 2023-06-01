@@ -46,11 +46,11 @@ public class Tube extends RadialGeometry {
 		return null;
 	}
 
-	@Override
+/*	@Override
 	public List<Point> findIntersections(Ray ray) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 
 	
 }

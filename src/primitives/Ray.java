@@ -2,6 +2,8 @@ package primitives;
 
 import java.util.List;
 
+import geometries.Intersectable.GeoPoint;
+
 /** Semi-Straight - All the points on the line that are on one side of the given point on the line 
  * called the beginning / head of the ray
  * @author Menuha and Yael */
@@ -39,13 +41,22 @@ public class Ray {
 	/** search the closest point to the ray in list of points
 	 * @param intersections - list of points we want to scan
 	 * @return the closest point to the ray */
-	public Point findClosestPoint(List<Point> intersections) {
-		if(intersections == null || intersections.size() == 0)
+	public Point findClosestPoint(List<Point> points) {
+		 return points == null || points.isEmpty() ? null
+		 : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+		}
+
+	/**search from list of points what is the closest point to the ray
+	 * and return is back
+	 * @param intersections - list of points we want to scan
+	 * @return the closest point to the ray*/
+	public GeoPoint findClosestGeoPoint (List<GeoPoint> intersections) {
+		if(intersections==null||intersections.size()==0)
 			return null;
-		var minPoint = intersections.get(0);
+		var minPoint=intersections.get(0);
 		for(var item: intersections) {
-		     if(item.distance(p0) < minPoint.distance(p0))
-		    	 minPoint = item;
+		     if(item.point.distance(p0)<minPoint.point.distance(p0))
+		    	 minPoint=item;
 		}
 		return minPoint;
 	}
