@@ -10,7 +10,7 @@ import primitives.*;
  */
 public interface LightSource {
 	
-	/**gets intensity light on point
+	/**gets intensity light on point (IL)
 	 * @param p - point on body geometry
 	 * @return color of pixel in this point*/
 	public Color getIntensity(Point p);

@@ -16,7 +16,7 @@ public abstract class Light {
 	}
 
 	/**
-	 * get the ambient light source
+	 * get the ambient light source (I0)
 	 * @return the intensity - ambient light source*/
 	public Color getIntensity() {
 		return intensity;
