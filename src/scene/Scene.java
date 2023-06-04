@@ -18,6 +18,8 @@ public class Scene {
 	
 	/** list of shapes that create our shape */
 	public Geometries geometries;
+	
+	
 
 	/** ctor: build empty shape with color black with the name given
 	 * @param name - name of the scene (the "empty" shape) */
