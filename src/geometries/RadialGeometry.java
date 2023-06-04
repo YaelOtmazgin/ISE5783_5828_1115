@@ -4,7 +4,7 @@ import primitives.Vector;
 
 /** Implements the Geometry interface
  * @author Menuha and Yael */
-public abstract class RadialGeometry extends Geometry {
+public abstract class RadialGeometry implements Geometry {
 	/** radius */
 	protected final double radius;
 	
