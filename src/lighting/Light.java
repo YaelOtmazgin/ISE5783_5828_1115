@@ -11,8 +11,8 @@ public abstract class Light {
 	private Color intensity;
 	
 	/*** A Ctor who gets the color and power of light by AmbientLight.*/
-	protected Light(Color intensity) {
-		this.intensity = intensity;
+	protected Light(Color iA, Double3 kA) {
+		this.intensity = iA.scale(kA);
 	}
 
 	/**
