@@ -5,7 +5,8 @@ import primitives.*;
 /** An abstract class responsible for all common operations on geometric shape 
  * @author Menuha and Yael */
 public abstract class Geometry extends Intersectable {
-	protected Color emmission = Color.BLACK;
+	/** emission color value */
+	protected Color emission = Color.BLACK;
 	
 	private Material material =  new Material();
 	
@@ -14,32 +15,28 @@ public abstract class Geometry extends Intersectable {
 	 * @return the normal vector on the given point. */
 	public abstract Vector getNormal(Point point);
 	
-	/** @return the color of the shape */
-	public Color getEmmission() {
-		return emmission;
+	/** @return the emission color of the shape */
+	public Color getEmission() {
+		return emission;
 	}
 
 	/** ------ set the emission ------
 	 * @param newColor - the new color to set
 	 * @return the Geometry itself */
 	public Geometry setEmission(Color newColor) {
-		emmission = newColor;
+		emission = newColor;
 		return this;
 	}
 
-	/**
-	 *  --------------- getter -------------------
-	 * @return the material
-	 */
+	/**  --------------- getter -------------------
+	 * @return the material of the geometry */
 	public Material getMaterial() {
 		return material;
 	}
 
-	/**
-	 * ------ set the material  ------
-	 * @param material - set material to geometry
-	 * @return itself geometry
-	 */
+	/** ------ set the material  ------
+	 * @param material - the new material to set
+	 * @return the Geometry itself */
 	public Geometry setMaterial(Material material) {
 		this.material = material;
 		return this;

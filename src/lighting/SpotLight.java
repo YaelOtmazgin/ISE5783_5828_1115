@@ -1,28 +1,20 @@
-/**
- * 
- */
 package lighting;
 
 import primitives.*;
-/**The class represents a directional 
- *point light source such as an adjustable lamp
- * @author Dell
- *
- */
+
+/** The class represents a directional point light source such as an adjustable lamp
+ * @author Menuha and Yael */
 public class SpotLight extends PointLight{
+	
 	private Vector direction;
 	
-	/**A Ctor who gets the color, power of light,position and direction vector.
+	/** A Ctor who gets the light source intensity, light source position and direction vector.
 	 * the light source cannot be on a body surface
-	 * @param iA - Fill the light intensity according to RGB
+	 * @param iL - source light intensity
 	 * @param point - position of source light
-	 * @param direction - direction of light
-	 * @param kC - constant coefficient
-	 * @param kL - Linear coefficient
-	 * @param kQ - Quadratic coefficient 
-	 * @param narrow - The width of the light extending from the light */
-	public SpotLight(Color iA, Point position, Vector direction) {
-		super(iA, position);
+	 * @param direction - direction of light */
+	public SpotLight(Color iL, Point position, Vector direction) {
+		super(iL, position);
 		this.direction = direction.normalize();
 	}
 
@@ -33,6 +25,7 @@ public class SpotLight extends PointLight{
 			return Color.BLACK;
 		return super.getIntensity(p).scale(result);
 	}
+	
 	@Override
 	public Vector getL(Point p) {
 		return super.getL(p);

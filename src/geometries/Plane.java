@@ -56,24 +56,6 @@ public class Plane extends Geometry {
 		return "Plane [q0=" + q0.toString() + ", normal=" + normal.toString() + "]";
 	}
 
-/*	@Override
-	public List<Point> findIntersections(Ray ray) {
-		double nv = normal.dotProduct(ray.getDir());
-		if (isZero(nv))
-			return null;		
-		try {
-			Vector sub = q0.subtract(ray.getP0());
-			double t = alignZero((normal.dotProduct(sub))/nv);
-			if(t > 0) {
-				var p1 = ray.getPoint(t);
-				return List.of(p1);
-			}			
-		} catch(Exception ex) {
-			return null;
-		}
-		return null;
-	}*/
-
 	@Override
 	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 		double nv = normal.dotProduct(ray.getDir());
@@ -92,4 +74,21 @@ public class Plane extends Geometry {
 		return null;
 	}
 
+	/*	@Override
+	public List<Point> findIntersections(Ray ray) {
+		double nv = normal.dotProduct(ray.getDir());
+		if (isZero(nv))
+			return null;		
+		try {
+			Vector sub = q0.subtract(ray.getP0());
+			double t = alignZero((normal.dotProduct(sub))/nv);
+			if(t > 0) {
+				var p1 = ray.getPoint(t);
+				return List.of(p1);
+			}			
+		} catch(Exception ex) {
+			return null;
+		}
+		return null;
+	}*/
 }

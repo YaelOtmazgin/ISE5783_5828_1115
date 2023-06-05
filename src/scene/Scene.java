@@ -15,24 +15,21 @@ public class Scene {
 	public String name;
 	
 	/** the background color */
-	public Color background;
+	public Color background = Color.BLACK;
 	
 	/** strength of the color */
-	public AmbientLight ambientLight;
+	public AmbientLight ambientLight = AmbientLight.NONE;
 	
-	/** list of shapes that create our shape */
-	public Geometries geometries;
+	/** list of shapes that create our scene */
+	public Geometries geometries = new Geometries();
 	
-	public List<LightSource> lights;
+	/** list of source lights */
+	public List<LightSource> lights = new LinkedList<LightSource>();
 
 	/** ctor: build empty shape with color black with the name given
 	 * @param name - name of the scene (the "empty" shape) */
 	public Scene(String name) {
-		this.name = name;
-		background = Color.BLACK;
-		ambientLight = AmbientLight.NONE;
-		geometries = new Geometries();
-		lights = new LinkedList<LightSource>();
+		this.name = name;	
 	}
 
 	/** ------------- setter -----------------
@@ -58,11 +55,9 @@ public class Scene {
 		this.geometries = geometries;
 		return this;
 	}
-	/**
-	 * ------------- setter -----------------
+	/** ------------- setter -----------------
 	 * @param lights - list of sources light
-	 * @return itself scene
-	 */
+	 * @return the scene itself */
 	public Scene setLights(List<LightSource> lights) {
 		this.lights = lights;
 		return this;

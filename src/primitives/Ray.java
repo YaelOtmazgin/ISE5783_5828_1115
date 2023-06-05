@@ -39,26 +39,25 @@ public class Ray {
 	}
 	
 	/** search the closest point to the ray in list of points
-	 * @param intersections - list of points we want to scan
+	 * @param points - list of points we want to scan
 	 * @return the closest point to the ray */
 	public Point findClosestPoint(List<Point> points) {
 		 return points == null || points.isEmpty() ? null
 		 : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
 		}
 
-	/**search from list of points what is the closest point to the ray
-	 * and return is back
-	 * @param intersections - list of points we want to scan
-	 * @return the closest point to the ray*/
-	public GeoPoint findClosestGeoPoint (List<GeoPoint> intersections) {
-		if(intersections==null||intersections.size()==0)
+	/** search the closest GeoPoint to the ray in list of GeoPoints
+	 * @param intersections - list of GeoPoints we want to scan
+	 * @return the closest GeoPoint to the ray*/
+	public GeoPoint findClosestGeoPoint(List<GeoPoint> intersections) {
+		if (intersections == null || intersections.size() == 0)
 			return null;
-		var minPoint=intersections.get(0);
-		for(var item: intersections) {
-		     if(item.point.distance(p0)<minPoint.point.distance(p0))
-		    	 minPoint=item;
+		var minGeoPoint = intersections.get(0);
+		for (var item: intersections) {
+		     if (item.point.distance(p0) < minGeoPoint.point.distance(p0))
+		    	 minGeoPoint = item;
 		}
-		return minPoint;
+		return minGeoPoint;
 	}
 	
 	@Override

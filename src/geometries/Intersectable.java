@@ -3,10 +3,10 @@ package geometries;
 import java.util.List;
 import primitives.*;
 
-/** The interface implements a function for intersection between a ray and shape.
+/** The class is responsible for intersections between a ray and shape.
  * @author Menuha and Yael */
 public abstract class Intersectable {
-	/** represent point and the geometry shape */
+	/** represent geometry shape and a point on it */
 	public static class GeoPoint {
 		/** value of the geometry shape */ 
 		public Geometry geometry;

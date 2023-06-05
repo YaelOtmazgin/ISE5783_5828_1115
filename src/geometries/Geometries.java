@@ -23,22 +23,6 @@ public class Geometries extends Intersectable {
 		sceneGeometries =  List.of(geometries);
 	}
 
-/*	@Override
-	public List<Point> findIntersections(Ray ray) {
-		List<Point> points = null;
-		if (sceneGeometries != null) {			
-			for (var shape: sceneGeometries) {
-				var result = shape.findIntersections(ray);
-				if (result != null)
-					if (points == null)
-						points = new LinkedList<Point>(result);
-					else
-						points.addAll(result);
-			}
-		}
-		return points;
-	}
-*/
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -66,19 +50,34 @@ public class Geometries extends Intersectable {
 
 	@Override
 	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-		List<GeoPoint> points = null;
+		List<GeoPoint> geoList = null;
 		if (sceneGeometries != null) {			
 			for (var shape: sceneGeometries) {
 				var result = shape.findGeoIntersectionsHelper(ray);
 				if (result != null)
+					if (geoList == null)
+						geoList = new LinkedList<GeoPoint>(result);
+					else
+						geoList.addAll(result);
+			}
+		}
+		return geoList;
+	}
+
+	/*	@Override
+	public List<Point> findIntersections(Ray ray) {
+		List<Point> points = null;
+		if (sceneGeometries != null) {			
+			for (var shape: sceneGeometries) {
+				var result = shape.findIntersections(ray);
+				if (result != null)
 					if (points == null)
-						points = new LinkedList<GeoPoint>(result);
+						points = new LinkedList<Point>(result);
 					else
 						points.addAll(result);
 			}
 		}
 		return points;
 	}
-
-	
+*/
 }

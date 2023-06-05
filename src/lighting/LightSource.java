@@ -1,25 +1,20 @@
-/**
- * 
- */
 package lighting;
 
 import primitives.*;
-/**The interface represents common operations on types of light sources
- * @author Menucha and Yael
- *
- */
+
+/** The interface represents common operations on types of light sources
+ * @author Menucha and Yael */
 public interface LightSource {
 	
-	/**gets intensity light on point (IL)
-	 * @param p - point on body geometry
-	 * @return color of pixel in this point*/
+	/** Get light intensity at a point (IL)
+	 * @param p - point on geometry shape
+	 * @return color of pixel in this point */
 	public Color getIntensity(Point p);
 	
-	/**The method calculates a unit vector from the light source to a point in a geometric body
+	/** The method calculates a unit vector from the light source to a point in a geometric shape
 	 * not support to zero vector!
-	 * @param p - point on body geometry
-	 * @return  a unit vector from the light source to a point in a geometric body */
+	 * @param p - point on geometry shape
+	 * @return the direction of the light */
 	public Vector getL(Point p);
-
 
 }

@@ -1,52 +1,48 @@
-/**
- * 
- */
 package lighting;
 
 import primitives.*;
 
-/**
- * @author Dell
- *
- */
+/** The class represents a point light source such as a simple lamp.
+ * @author Menuha and Yael */
 public class PointLight extends Light implements LightSource {
+	
 	private Point position;
 	private double kC = 1, kL = 0, kQ = 0;
 	
-	/**
-	 * A Ctor who gets the color, power of light and point(source of light).
+	/** A Ctor who gets the light source intensity and point(source of light).
 	 * the light source cannot be on a body surface
-	 * @param iA    - Fill the light intensity according to RGB
-	 * @param point - position of source light
-	 * @param kC - constant coefficient
-	 * @param kL - Linear coefficient
-	 * @param kQ - Quadratic coefficient
-	 */
-	public PointLight(Color iA, Point position) {
-		super(iA, new Double3(1));
+	 * @param iL - light source intensity
+	 * @param point - position of source light */
+	public PointLight(Color iL, Point position) {
+		super(iL);
 		this.position = position;
-		}
+	}
 
-	
-	
+	/** sets kC value
+	 * @param kC - new constant coefficient value
+	 * @return the point light itself */
 	public PointLight setKc(double kC) {
 		this.kC = kC;
 		return this;
 
 	}
 
+	/** sets kL value
+	 * @param kL - new Linear coefficient value
+	 * @return the point light itself */
 	public PointLight setKl(double kL) {
 		this.kL = kL;
 		return this;
 
 	}
 
+	/** sets kQ value
+	 * @param kQ - new Quadratic coefficient value
+	 * @return the point light itself */
 	public PointLight setKq(double kQ) {
 		this.kQ = kQ;
 		return this;
 	}
-
-
 
 	@Override
 	public Color getIntensity(Point p) {
@@ -54,8 +50,6 @@ public class PointLight extends Light implements LightSource {
 		return super.getIntensity()
 					.reduce(kC + kL*distance + kQ*distance*distance);
 	}
-
-
 
 	@Override
 	public Vector getL(Point p) {

@@ -2,7 +2,7 @@ package geometries;
 
 import primitives.Vector;
 
-/** Implements the Geometry interface
+/** A parent class for geometry shapes with a radius
  * @author Menuha and Yael */
 public abstract class RadialGeometry extends Geometry {
 	/** radius */

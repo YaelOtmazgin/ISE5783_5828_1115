@@ -25,16 +25,20 @@ public class RayTracerBasic extends RayTracerBase {
 		return calcColor(closestPoint, ray);
 	}
 
-	/** Calculates the color of a given point 
-	 * @param point - point on image
-	 * @return the color in this point */
-	private Color calcColor(GeoPoint intersection, Ray ray) {
+	/** Calculates the color of a given point, including the effect of the light sources
+	 * @param gp - geometry shape with a point on it
+	 * @return the color of the geometry shape */
+	private Color calcColor(GeoPoint gp, Ray ray) {
 		return scene.ambientLight.getIntensity()
-				.add(calcLocalEffects(intersection, ray));
+				.add(calcLocalEffects(gp, ray));
 	}
 
+	/** helps to calculate "calcColor" - calculated light contribution from all light sources
+	 * @param gp - geometry shape with point
+	 * @param ray - ray from the camera
+	 * @return calculated light contribution from all light sources */
 	private Color calcLocalEffects(GeoPoint gp, Ray ray) {
-		Color color = gp.geometry.getEmmission();
+		Color color = gp.geometry.getEmission();
 		Vector v = ray.getDir (); Vector n = gp.geometry.getNormal(gp.point);
 		double nv = Util.alignZero(n.dotProduct(v)); 
 		if (nv == 0) 
@@ -52,6 +56,13 @@ public class RayTracerBasic extends RayTracerBase {
 		return color;
 	}
 
+	/** calculate the specular light according to Phong's model
+	 * @param material - material of the geometry
+	 * @param n - normal to the point
+	 * @param l - vector from light source
+	 * @param nl - scalar product of n and l
+	 * @param v - camera vector, the direction of the ray
+	 * @return the specular light */
 	private Double3 calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
 		Vector r = l.add(n.scale(-2*nl));
 		double result = -Util.alignZero(v.dotProduct(r));
@@ -60,6 +71,10 @@ public class RayTracerBasic extends RayTracerBase {
 		return material.kS.scale(Math.pow(result, material.nShininess));
 	}
 
+	/** calculate the diffusive light according to Phong's model
+	 * @param material - material of the geometry
+	 * @param nl - scalar product of n and l
+	 * @return the diffusive light */
 	private Double3 calcDiffusive(Material material, double nl) {
 		return material.kD.scale(Math.abs(nl));
 	}
