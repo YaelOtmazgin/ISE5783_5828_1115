@@ -73,7 +73,7 @@ public class SceneBuilder {
 			var stringColor = element.getAttributeNode("color").getValue();
 			var colorRBG = stringColor.toString().split(" ");
 			scene.setAmbientLight(new AmbientLight(new Color(Double.parseDouble(colorRBG[0]),
-					Double.parseDouble(colorRBG[1]), Double.parseDouble(colorRBG[2])), 1.0));
+					Double.parseDouble(colorRBG[1]), Double.parseDouble(colorRBG[2])), new Double3(1.0)));
 		}
 	}
 
