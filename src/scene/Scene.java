@@ -1,6 +1,10 @@
 package scene;
 
-import lighting.AmbientLight;
+import lighting.*;
+
+import java.util.List;
+import java.util.LinkedList; 
+
 import geometries.Geometries;
 import primitives.Color;
 
@@ -19,7 +23,7 @@ public class Scene {
 	/** list of shapes that create our shape */
 	public Geometries geometries;
 	
-	
+	public List<LightSource> lights;
 
 	/** ctor: build empty shape with color black with the name given
 	 * @param name - name of the scene (the "empty" shape) */
@@ -28,6 +32,7 @@ public class Scene {
 		background = Color.BLACK;
 		ambientLight = AmbientLight.NONE;
 		geometries = new Geometries();
+		lights = new LinkedList<LightSource>();
 	}
 
 	/** ------------- setter -----------------
@@ -52,5 +57,15 @@ public class Scene {
 	public Scene setGeometries(Geometries geometries) {
 		this.geometries = geometries;
 		return this;
+	}
+	/**
+	 * ------------- setter -----------------
+	 * @param lights - list of sources light
+	 * @return itself scene
+	 */
+	public Scene setLights(List<LightSource> lights) {
+		this.lights = lights;
+		return this;
+		
 	}
 }
