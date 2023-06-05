@@ -22,29 +22,26 @@ public class PointLight extends Light implements LightSource {
 	 * @param kL - Linear coefficient
 	 * @param kQ - Quadratic coefficient
 	 */
-	public PointLight(Color iA, Point position, double kC, double kL, double kQ) {
+	public PointLight(Color iA, Point position) {
 		super(iA, new Double3(1));
 		this.position = position;
-		this.kC=kC;
-		this.kL=kL;
-		this.kQ=kQ;
-	}
+		}
 
 	
 	
-	public PointLight setkC(double kC) {
+	public PointLight setKc(double kC) {
 		this.kC = kC;
 		return this;
 
 	}
 
-	public PointLight setkL(double kL) {
+	public PointLight setKl(double kL) {
 		this.kL = kL;
 		return this;
 
 	}
 
-	public PointLight setkQ(double kQ) {
+	public PointLight setKq(double kQ) {
 		this.kQ = kQ;
 		return this;
 	}

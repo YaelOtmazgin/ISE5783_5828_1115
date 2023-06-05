@@ -21,8 +21,8 @@ public class SpotLight extends PointLight{
 	 * @param kL - Linear coefficient
 	 * @param kQ - Quadratic coefficient 
 	 * @param narrow - The width of the light extending from the light */
-	public SpotLight(Color iA, Point position, double kC, double kL, double kQ, Vector direction) {
-		super(iA, position, kC, kL, kQ);
+	public SpotLight(Color iA, Point position, Vector direction) {
+		super(iA, position);
 		this.direction = direction.normalize();
 	}
 

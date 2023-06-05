@@ -53,12 +53,14 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	private Double3 calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
-		// TODO Auto-generated method stub
-		return null;
+		Vector r = l.add(n.scale(-2*nl));
+		double result = -Util.alignZero(v.dotProduct(r));
+		if (result <= 0)
+			return Double3.ZERO;
+		return material.kS.scale(Math.pow(result, material.nShininess));
 	}
 
 	private Double3 calcDiffusive(Material material, double nl) {
-		// TODO Auto-generated method stub
-		return null;
+		return material.kD.scale(Math.abs(nl));
 	}
 }
