@@ -17,7 +17,7 @@ public class RenderTests {
 
    /** Produce a scene with basic 3D model and render it into a png image with a
     * grid */
- /*  @Test
+	@Test
    public void basicRenderTwoColorTest() {
       Scene scene = new Scene("Test scene")//
          .setAmbientLight(new AmbientLight(new Color(255, 191, 191), //
@@ -41,7 +41,7 @@ public class RenderTests {
       camera.renderImage();
       camera.printGrid(100, new Color(YELLOW));
       camera.writeToImage();
-   }*/
+   }
 
    // For stage 6 - please disregard in stage 5
    /** Produce a scene with basic 3D model - including individual lights of the
@@ -74,7 +74,7 @@ public class RenderTests {
       camera.writeToImage();
    }
 
-    /**Test for XML based scene - for bonus 
+    //Test for XML based scene - for bonus 
    @Test
    public void basicRenderXml() {
       Scene  scene  = new Scene("XML Test scene");
@@ -90,5 +90,5 @@ public class RenderTests {
       camera.renderImage();
       camera.printGrid(100, new Color(YELLOW));
       camera.writeToImage();
-   }*/
+   }
 }

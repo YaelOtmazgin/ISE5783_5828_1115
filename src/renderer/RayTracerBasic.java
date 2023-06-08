@@ -38,19 +38,20 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @param ray - ray from the camera
 	 * @return calculated light contribution from all light sources */
 	private Color calcLocalEffects(GeoPoint gp, Ray ray) {
-		Color color = gp.geometry.getEmission();
-		Vector v = ray.getDir (); Vector n = gp.geometry.getNormal(gp.point);
-		double nv = Util.alignZero(n.dotProduct(v)); 
+		Color color = gp.geometry.getEmission(); //the color of the shape
+		Vector v = ray.getDir (); //the direction of the ray
+		Vector n = gp.geometry.getNormal(gp.point); //the normal vector of gp at point p
+		double nv = Util.alignZero(n.dotProduct(v)); //the scalar between the direction and the normal (2 vectors)
 		if (nv == 0) 
 			return color;
-		Material material = gp.geometry.getMaterial();
+		Material material = gp.geometry.getMaterial(); //the material shape of gp
 		for (LightSource lightSource : scene.lights) {
-			Vector l = lightSource.getL(gp.point);
-			double nl = Util.alignZero(n.dotProduct(l));
+			Vector l = lightSource.getL(gp.point); //the vector from a light source to the point of gp
+			double nl = Util.alignZero(n.dotProduct(l)); //the scalar between the normal and the vector of light source
 			if (nl * nv > 0) { // sign(nl) == sing(nv)
-				Color iL = lightSource.getIntensity(gp.point);
+				Color iL = lightSource.getIntensity(gp.point); //the intensity color from the light source at a point of gp
 				color = color.add(iL.scale(calcDiffusive(material, nl)),
-						iL.scale(calcSpecular(material, n, l, nl, v)));
+						iL.scale(calcSpecular(material, n, l, nl, v))); //the color with diffusive and specular reflection of each light source
 				}
 		}
 		return color;

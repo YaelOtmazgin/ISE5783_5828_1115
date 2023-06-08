@@ -2,6 +2,9 @@ package unittests.renderer;
 
 import static java.awt.Color.*;
 
+import java.util.List;
+import java.util.LinkedList;
+
 import org.junit.jupiter.api.Test;
 
 import geometries.*;
@@ -13,54 +16,50 @@ import scene.Scene;
 /** Test rendering a basic image
  * @author Dan */
 public class LightsTests {
-   private final Scene          scene1                  = new Scene("Test scene");
-   private final Scene          scene2                  = new Scene("Test scene")
+   private final Scene scene1 = new Scene("Test scene");
+   private final Scene scene2 = new Scene("Test scene")
       .setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)));
 
-   private final Camera         camera1                 = new Camera(new Point(0, 0, 1000),
-                                                                     new Vector(0, 0, -1), new Vector(0, 1, 0))
-      .setVPSize(150, 150).setVPDistance(1000);
-   private final Camera         camera2                 = new Camera(new Point(0, 0, 1000),
-                                                                     new Vector(0, 0, -1), new Vector(0, 1, 0))
-      .setVPSize(200, 200).setVPDistance(1000);
+   private final Camera camera1 = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0))
+		   									.setVPSize(150, 150).setVPDistance(1000);
+   
+   private final Camera camera2 = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0))
+		   									.setVPSize(200, 200).setVPDistance(1000);
 
-   private static final int     SHININESS               = 301;
-   private static final double  KD                      = 0.5;
-   private static final Double3 KD3                     = new Double3(0.2, 0.6, 0.4);
+   private static final int     SHININESS = 301;
+   private static final double  KD = 0.5;
+   private static final Double3 KD3 = new Double3(0.2, 0.6, 0.4);
 
-   private static final double  KS                      = 0.5;
-   private static final Double3 KS3                     = new Double3(0.2, 0.4, 0.3);
+   private static final double  KS = 0.5;
+   private static final Double3 KS3 = new Double3(0.2, 0.4, 0.3);
 
-   private final Material       material                = new Material().setKd(KD3).setKs(KS3).setShininess(SHININESS);
-   private final Color          trianglesLightColor     = new Color(800, 500, 250);
-   private final Color          sphereLightColor        = new Color(800, 500, 0);
-   private final Color          sphereColor             = new Color(BLUE).reduce(2);
+   private final Material material = new Material().setKd(KD3).setKs(KS3).setShininess(SHININESS);
+   private final Color trianglesLightColor = new Color(800, 500, 250);
+   private final Color sphereLightColor = new Color(800, 500, 0);
+   private final Color sphereColor  = new Color(BLUE).reduce(2);
 
-   private final Point          sphereCenter            = new Point(0, 0, -50);
-   private static final double  SPHERE_RADIUS           = 50d;
+   private final Point sphereCenter = new Point(0, 0, -50);
+   private static final double  SPHERE_RADIUS = 50d;
 
    // The triangles' vertices:
-   private final Point[]        vertices                =
-      {
-        // the shared left-bottom:
+   private final Point[] vertices =
+      {// the shared left-bottom:
         new Point(-110, -110, -150),
         // the shared right-top:
         new Point(95, 100, -150),
         // the right-bottom
         new Point(110, -110, -150),
         // the left-top
-        new Point(-75, 78, 100)
-      };
-   private final Point          sphereLightPosition     = new Point(-50, -50, 25);
-   private final Point          trianglesLightPosition  = new Point(30, 10, -100);
-   private final Vector         trianglesLightDirection = new Vector(-2, -2, -2);
+        new Point(-75, 78, 100)};
+   
+   private final Point sphereLightPosition = new Point(-50, -50, 25);
+   private final Point trianglesLightPosition = new Point(30, 10, -100);
+   private final Vector trianglesLightDirection = new Vector(-2, -2, -2);
 
-   private final Geometry       sphere                  = new Sphere(sphereCenter, SPHERE_RADIUS)
-      .setEmission(sphereColor).setMaterial(new Material().setKd(KD).setKs(KS).setShininess(SHININESS));
-   private final Geometry       triangle1               = new Triangle(vertices[0], vertices[1], vertices[2])
-      .setMaterial(material);
-   private final Geometry       triangle2               = new Triangle(vertices[0], vertices[1], vertices[3])
-      .setMaterial(material);
+   private final Geometry sphere = new Sphere(sphereCenter, SPHERE_RADIUS).setEmission(sphereColor)
+		   								.setMaterial(new Material().setKd(KD).setKs(KS).setShininess(SHININESS));
+   private final Geometry triangle1 = new Triangle(vertices[0], vertices[1], vertices[2]).setMaterial(material);
+   private final Geometry triangle2 = new Triangle(vertices[0], vertices[1], vertices[3]).setMaterial(material);
 
    /** Produce a picture of a sphere lighted by a directional light */
    @Test
@@ -172,5 +171,47 @@ public class LightsTests {
          .renderImage(); //
       camera2.writeToImage(); //
    }
+   
+   
+   
+   /** Produce a picture of Sphere lighted by all source lights */
+	@Test
+	public void sphereAllLight() {
+		scene1.geometries.add(sphere);
+		DirectionalLight d = new DirectionalLight(sphereLightColor, new Vector(0, -1, -1));
+		PointLight p = new PointLight(sphereLightColor, sphereLightPosition)
+		         .setKl(0.005).setKq(0.000025);
+		SpotLight s = new SpotLight(sphereColor, sphereLightPosition, new Vector(1, 1, -1.5));
+		s.setKl(0.00000075).setKq(0.000000000025);
+		
+		scene1.lights.addAll(List.of(s, d, p));
+		
+	    ImageWriter imageWriter = new ImageWriter("sphereAllLight", 500, 500);
+	    camera1.setImageWriter(imageWriter) //
+	         .setRayTracer(new RayTracerBasic(scene1)) //
+	         .renderImage(); //
+	    camera1.writeToImage(); //
+	}
+	
+	/**
+	 * Produce a picture of a two triangles lighted by all source lights
+	 */
+	@Test
+	public void trianglesAllLight() {
+		scene2.geometries.add(triangle1,triangle2);
+		DirectionalLight d = new DirectionalLight(trianglesLightColor, trianglesLightDirection);
+		PointLight p = new PointLight(trianglesLightColor, trianglesLightPosition)
+				.setKl(0.0005).setKq(0.0005);
+		SpotLight s = new SpotLight(trianglesLightColor, trianglesLightPosition, trianglesLightDirection);
+		s.setKl(0001).setKq(000005);
+		scene2.lights.addAll(List.of(s, d, p));
+		
+		ImageWriter imageWriter = new ImageWriter("trianglesAllLight", 500, 500);
+	    camera2.setImageWriter(imageWriter) //
+	         .setRayTracer(new RayTracerBasic(scene2)) //
+	         .renderImage(); //
+	    camera2.writeToImage(); //
+	}
+
 
 }
