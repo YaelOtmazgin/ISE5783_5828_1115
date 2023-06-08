@@ -1,5 +1,5 @@
 package unittests.primitives;
-import static java.lang.System.out;
+//import static java.lang.System.out;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 import static primitives.Util.isZero;

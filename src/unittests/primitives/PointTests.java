@@ -1,10 +1,10 @@
 package unittests.primitives;
-import static java.lang.System.out;
+//import static java.lang.System.out;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+//import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 import primitives.*;
-import geometries.*;
+/*import geometries.*;*/
 import static primitives.Util.isZero;
 
 /** Unit tests for primitives.Point class

@@ -2,7 +2,7 @@ package geometries;
 
 import java.util.List;
 
-import geometries.Intersectable.GeoPoint;
+/*import geometries.Intersectable.GeoPoint;*/
 
 import primitives.*;
 import static primitives.Util.*;

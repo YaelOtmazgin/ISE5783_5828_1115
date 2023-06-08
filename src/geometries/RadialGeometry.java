@@ -1,6 +1,6 @@
 package geometries;
 
-import primitives.Vector;
+/*import primitives.Vector;*/
 
 /** A parent class for geometry shapes with a radius
  * @author Menuha and Yael */

@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-import primitives.Point;
 import primitives.Ray;
 
 /** A class for a collection of geometric shapes

@@ -14,14 +14,14 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import lighting.AmbientLight;
-import parser.SceneDescriptor;
+//import parser.SceneDescriptor;
 import geometries.*;
 import primitives.*;
 
 /** A class responsible for constructing a scene from an xml file using API of DOM
  * @author Menuha and Yael */
 public class SceneBuilder {
-	private SceneDescriptor sceneDesc;
+	//private SceneDescriptor sceneDesc;
 	private Scene scene;
 	private static final String filePath = System.getProperty("user.dir") + "/xml/";
 
