@@ -174,7 +174,8 @@ public class LightsTests {
    
    
    
-   /** Produce a picture of Sphere lighted by all source lights */
+   /** Produce a picture of Sphere lighted by all source lights
+    * @author Menuha and Yael */
 	@Test
 	public void sphereAllLight() {
 		scene1.geometries.add(sphere);
@@ -193,9 +194,8 @@ public class LightsTests {
 	    camera1.writeToImage(); //
 	}
 	
-	/**
-	 * Produce a picture of a two triangles lighted by all source lights
-	 */
+	/** Produce a picture of a two triangles lighted by all source lights
+	 * @author Menuha and Yael*/
 	@Test
 	public void trianglesAllLight() {
 		scene2.geometries.add(triangle1,triangle2);
@@ -212,6 +212,4 @@ public class LightsTests {
 	         .renderImage(); //
 	    camera2.writeToImage(); //
 	}
-
-
 }

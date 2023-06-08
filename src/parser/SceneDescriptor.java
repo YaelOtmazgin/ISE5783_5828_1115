@@ -22,7 +22,7 @@ import primitives.*;
 
 
 /**
- * @author Dell
+ * @author Menuha and Yael
  *
  */
 public class SceneDescriptor {
