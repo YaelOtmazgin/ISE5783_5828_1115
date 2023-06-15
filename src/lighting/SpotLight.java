@@ -4,7 +4,7 @@ import primitives.*;
 
 /** The class represents a directional point light source such as an adjustable lamp
  * @author Menuha and Yael */
-public class SpotLight extends PointLight{
+public class SpotLight extends PointLight {
 	
 	private Vector direction;
 	

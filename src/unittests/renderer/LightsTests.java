@@ -36,7 +36,7 @@ public class LightsTests {
    private final Material material = new Material().setKd(KD3).setKs(KS3).setShininess(SHININESS);
    private final Color trianglesLightColor = new Color(800, 500, 250);
    private final Color sphereLightColor = new Color(800, 500, 0);
-   private final Color sphereColor  = new Color(BLUE).reduce(2);
+   private final Color sphereColor = new Color(BLUE).reduce(2);
 
    private final Point sphereCenter = new Point(0, 0, -50);
    private static final double  SPHERE_RADIUS = 50d;
@@ -178,11 +178,12 @@ public class LightsTests {
     * @author Menuha and Yael */
 	@Test
 	public void sphereAllLight() {
+		Color sphereLightColor1 = new Color(300, 150, 150);
 		scene1.geometries.add(sphere);
-		DirectionalLight d = new DirectionalLight(sphereLightColor, new Vector(0, -1, -1));
-		PointLight p = new PointLight(sphereLightColor, sphereLightPosition)
+		DirectionalLight d = new DirectionalLight(sphereLightColor1, new Vector(0, -1, -1));
+		PointLight p = new PointLight(sphereLightColor1, new Point(40, -20, 80))
 		         .setKl(0.005).setKq(0.000025);
-		SpotLight s = new SpotLight(sphereColor, sphereLightPosition, new Vector(1, 1, -1.5));
+		SpotLight s = new SpotLight(sphereLightColor1, new Point(-50, -50, 50), new Vector(1, 1, -1.5));
 		s.setKl(0.00000075).setKq(0.000000000025);
 		
 		scene1.lights.addAll(List.of(s, d, p));
@@ -198,11 +199,13 @@ public class LightsTests {
 	 * @author Menuha and Yael*/
 	@Test
 	public void trianglesAllLight() {
+		Color trianglesLightColor1 = new Color(500, 250, 250);
 		scene2.geometries.add(triangle1,triangle2);
-		DirectionalLight d = new DirectionalLight(trianglesLightColor, trianglesLightDirection);
-		PointLight p = new PointLight(trianglesLightColor, trianglesLightPosition)
+		DirectionalLight d = new DirectionalLight(new Color(300, 150, 150), 
+				new Vector(-0.502518907629606, 0.502518907629606, -0.7035264706814485));
+		PointLight p = new PointLight(trianglesLightColor1, new Point(10, -60, -100))
 				.setKl(0.0005).setKq(0.0005);
-		SpotLight s = new SpotLight(trianglesLightColor, trianglesLightPosition, trianglesLightDirection);
+		SpotLight s = new SpotLight(trianglesLightColor1, new Point(80, 50, -130), new Vector(-2, -2, -1));
 		s.setKl(0001).setKq(000005);
 		scene2.lights.addAll(List.of(s, d, p));
 		
