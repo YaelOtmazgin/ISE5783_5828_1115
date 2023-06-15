@@ -48,7 +48,7 @@ class TriangleTests {
         // TC03: The ray cuts the plane within the boundaries of the triangle
         ray = new Ray(new Point(-2.09, 2.69, 2.3), new Vector(4.09, -0.69, -2.3));
         assertEquals(1, triangle.findIntersections(ray).size(), "the intersection point is in the triangle - need 1 intersections");
-   
+        
         // =============== Boundary Values Tests ==================
 
         // TC11: The ray intersects on the side of the triangle
@@ -63,4 +63,5 @@ class TriangleTests {
         ray = new Ray(new Point(3.86, -4.95, 0), new Vector(2.97, 1.28, 0));
         assertNull(triangle.findIntersections(ray), "the intersection point is out of the triangle - need 0 intersections");
     }
+    
 }

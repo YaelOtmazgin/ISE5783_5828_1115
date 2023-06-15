@@ -5,7 +5,7 @@ package primitives;
 public class Material {
 	/** Diffusive */
 	public Double3 kD = Double3.ZERO;
-	/** Specular or Reflection */
+	/** Specular or Reflection - relating to or having the properties of a mirror.*/
 	public Double3 kS = Double3.ZERO;
 	/** Represents concentration of specular effect */
 	public int nShininess = 0;

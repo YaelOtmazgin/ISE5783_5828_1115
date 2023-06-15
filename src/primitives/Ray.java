@@ -31,7 +31,7 @@ public class Ray {
 		return dir;
 	}
 	
-	/** a function that calculate apoint on the ray
+	/** a function that calculate a point on the ray
 	 * @param t scaler
 	 * @return vector */
 	public Point getPoint(double t) {

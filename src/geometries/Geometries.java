@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+import geometries.Intersectable.GeoPoint;
 import primitives.Ray;
 
 /** A class for a collection of geometric shapes
@@ -48,11 +49,11 @@ public class Geometries extends Intersectable {
 	}
 
 	@Override
-	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
 		List<GeoPoint> geoList = null;
 		if (sceneGeometries != null) {			
 			for (var shape: sceneGeometries) {
-				var result = shape.findGeoIntersectionsHelper(ray);
+				var result = shape.findGeoIntersectionsHelper(ray, maxDistance);
 				if (result != null)
 					if (geoList == null)
 						geoList = new LinkedList<GeoPoint>(result);

@@ -13,8 +13,15 @@ public class AmbientLight extends Light {
 
 	/** A Ctor who gets the color and power of light
 	 * @param Ia - Fill the light intensity according to RGB
-	 * @param Ka - Coefficient of attenuation of filler light */
+	 * @param Ka - Coefficient of attenuation of filler light (Double3)*/
 	public AmbientLight(Color iA, Double3 kA) {
+		super(iA.scale(kA));
+	}
+	
+	/** A Ctor who gets the color and power of light
+	 * @param Ia - Fill the light intensity according to RGB
+	 * @param Ka - Coefficient of attenuation of filler light (double) */
+	public AmbientLight(Color iA, double kA) {
 		super(iA.scale(kA));
 	}
 }

@@ -3,12 +3,15 @@ package renderer;
 import primitives.*;
 import scene.Scene;
 import lighting.*;
+
+import java.util.List;
+
 import geometries.Intersectable.GeoPoint;
 
 /** A basic class responsible for tracking the ray that inherits from RayTracerBase
  * @author Menuha and Yael */
 public class RayTracerBasic extends RayTracerBase {
-	
+	/** Rayhead offset size for shading rays */
 	private static final double DELTA = 0.1;
 	/** constructor that operate its parent's constructor
 	 * @param scene - shape that build from geometries shapes, color and ambientLight */
@@ -42,17 +45,18 @@ public class RayTracerBasic extends RayTracerBase {
 		Color color = gp.geometry.getEmission(); //the color of the shape
 		Vector v = ray.getDir (); //the direction of the ray
 		Vector n = gp.geometry.getNormal(gp.point); //the normal vector of gp at point p
-		double nv = Util.alignZero(n.dotProduct(v)); //the scalar between the direction and the normal (2 vectors)
+		double nv = Util.alignZero(n.dotProduct(v)); //the scalar between the camera direction and the normal (2 vectors)
 		if (nv == 0) 
 			return color;
 		Material material = gp.geometry.getMaterial(); //the shape material of gp
 		for (LightSource lightSource : scene.lights) {
 			Vector l = lightSource.getL(gp.point); //the vector from a light source to the point of gp
 			double nl = Util.alignZero(n.dotProduct(l)); //the scalar between the normal and the vector of light source
-			if (nl * nv > 0) { // sign(nl) == sing(nv)
-				Color iL = lightSource.getIntensity(gp.point); //the intensity color from the light source at a point of gp
-				color = color.add(iL.scale(calcDiffusive(material, nl)),
-						iL.scale(calcSpecular(material, n, l, nl, v))); //the color with diffusive and specular reflection of each light source
+			if (nl * nv > 0)// sign(nl) == sing(nv) - light&camera have the same direction
+				if (unshaded(gp, lightSource, l, n, nl)) {
+					Color iL = lightSource.getIntensity(gp.point); //the intensity color from the light source at a point of gp
+					color = color.add(iL.scale(calcDiffusive(material, nl)),
+							iL.scale(calcSpecular(material, n, l, nl, v))); //the color with diffusive and specular reflection of each light source
 				}
 		}
 		return color;
@@ -66,9 +70,9 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @param v - camera vector, the direction of the ray
 	 * @return the specular light */
 	private Double3 calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
-		Vector r = l.add(n.scale(-2*nl));
-		double result = -Util.alignZero(v.dotProduct(r));
-		if (result <= 0)
+		Vector r = l.add(n.scale(-2*nl)); //vector of specular
+		double result = -Util.alignZero(v.dotProduct(r)); //specular value to the camera
+		if (result <= 0) //sign(v) == sign(r) - specular&camera have the same direction 
 			return Double3.ZERO;
 		return material.kS.scale(Math.pow(result, material.nShininess));
 	}
@@ -79,5 +83,25 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @return the diffusive light */
 	private Double3 calcDiffusive(Material material, double nl) {
 		return material.kD.scale(Math.abs(nl));
+	}
+	
+	/** For shading test between point and light source
+	 * @param gp    - point in geometry shape
+	 * @param light - light source
+	 * @param l     - vector from light
+	 * @param n     - normal of shape
+	 * @param nl    - scalar product of n and l	 
+	 * @return
+	 *         <li>true - if unshaded
+	 *         <li>false - if shaded
+	 */
+	private boolean unshaded(GeoPoint gp, LightSource light, Vector l, Vector n, double nl) {
+		Vector lightDirection = l.scale(-1); // from point to light source
+		Vector delta = n.scale(nl < 0 ? DELTA : -DELTA); // if light&camera have the same direction, change the new vector direction
+		Point point = gp.point.add(delta);
+		Ray lightRay = new Ray(point, lightDirection);
+		double d = light.getDistance(point);
+		var intersections = scene.geometries.findGeoIntersections(lightRay, d);
+		return intersections == null;
 	}
 }

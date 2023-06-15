@@ -37,18 +37,27 @@ public abstract class Intersectable {
 	
 	/** Function for finding intersections GeoPoints
 	 * @param ray - The ray that crosses the shape
-	 * @return list of intersections GeoPoints */
+	 * @return list of intersections GeoPoints (geometry/point pairs) */
 	public List<GeoPoint> findGeoIntersections(Ray ray) {
-		return findGeoIntersectionsHelper(ray);
+		return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
 	}
 	
-	/** Function that helps finding intersections GeoPoints
-	 * @param ray - The ray that crosses the body
-	 * @return list of intersections GeoPoints (geometry/point pairs) */
-	protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
+	/**Function for finding intersections between GeoPoints and ray with length
+	 * @param ray - The ray that crosses the shape
+	 * @param maxDistance - the length of the ray
+	 * @return list of intersections between GeoPoints and ray with length */
+	public final List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
+		 return findGeoIntersectionsHelper(ray, maxDistance);
+	}
+	
+	/** Function that helps finding intersections between GeoPoints and ray with length
+	 * @param ray - The ray that crosses the shape
+	 * @param maxDistance - the length of the ray
+	 * @return list of intersections between GeoPoints and ray with length */
+	protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance);
 	
 	/** Function for finding intersection points.
-	 * @param ray.
+	 * @param ray - The ray that crosses the shape
 	 * @return list of intersections points. */
 	public List<Point> findIntersections(Ray ray) {
 		 var geoList = findGeoIntersections(ray);

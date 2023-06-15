@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import primitives.*;
 import geometries.*;
+import geometries.Intersectable.GeoPoint;
 
 /** Unit tests for geometries.Sphere class
  * @author Menuha and Yael */
@@ -103,5 +104,21 @@ class SphereTests {
         // **** Group: Special cases
         // TC22: Ray's line is outside, ray is orthogonal to ray start to sphere's center line
         assertNull(sphere.findIntersections(new Ray(new Point(-0.5, 0, 0), new Vector(0, -2, 1))), "The ray's line is outside, ray is orthogonal to ray start to sphere's center line");
+    }
+    
+
+    /** Test method for {@link geometries.Sphere#findGeoIntersections(primitives.Ray, double)}. */
+    @Test
+    public void testfindGeoIntersections() {
+        Sphere sphere = new Sphere(new Point(1, 0, 0), 1d);
+       
+        // ============ Equivalence Partitions Tests ====================
+        
+        // TC01: Ray starts before and crosses the sphere (2 points) but the distance from the ray head to the second point is bigger than maxDistance
+        List<GeoPoint> result = sphere.findGeoIntersections(new Ray(new Point(-1, 0, 0), new Vector(3, 1, 0)), 2);
+        assertEquals(1, result.size(), "The ray end before the second point");
+
+        // TC02: Ray starts before and crosses the sphere (2 points) but the distance from the ray head to the 2 points is bigger than maxDistance
+        assertNull(sphere.findGeoIntersections(new Ray(new Point(-1, 0, 0), new Vector(3, 1, 0)), 1), "The ray end before the 2 points");  
     }
 }
