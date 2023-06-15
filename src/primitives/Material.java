@@ -3,15 +3,15 @@ package primitives;
 /** The class represents the Phong Reflectance Model.
  * @author Menuha and Yael */
 public class Material {
-	/** refraction */
+	/** Diffusive */
 	public Double3 kD = Double3.ZERO;
-	/** specular */
+	/** Specular or Reflection */
 	public Double3 kS = Double3.ZERO;
-	/** shine */
+	/** Represents concentration of specular effect */
 	public int nShininess = 0;
 	
 	/** ------------- setter -----------------
-	 * @param kD - the kD to set
+	 * @param kD - the Diffusive to set
 	 * @return the material itself */
 	public Material setKd(Double3 kD) {
 		this.kD = kD;
@@ -19,7 +19,7 @@ public class Material {
 	}
 	
 	/** ------------- setter -----------------
-	 * @param kD the kD to set (type double)
+	 * @param kD the Diffusive to set (type double)
 	 * @return the material itself */
 	public Material setKd(double kD) {
 		this.kD = new Double3(kD);
@@ -27,7 +27,7 @@ public class Material {
 	}
 	
 	/** ------------- setter -----------------
-	 * @param kS the kS to set
+	 * @param kS - the Specular to set
 	 * @return the material itself */
 	public Material setKs(Double3 kS) {
 		this.kS = kS;
@@ -35,7 +35,7 @@ public class Material {
 	}
 	
 	/** ------------- setter -----------------
-	 * @param kS the kS to set (type double)
+	 * @param kS - the Specular to set (type double)
 	 * @return the material itself */
 	public Material setKs(double kS) {
 		this.kS = new Double3(kS);

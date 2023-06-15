@@ -8,7 +8,8 @@ import geometries.Intersectable.GeoPoint;
 /** A basic class responsible for tracking the ray that inherits from RayTracerBase
  * @author Menuha and Yael */
 public class RayTracerBasic extends RayTracerBase {
-
+	
+	private static final double DELTA = 0.1;
 	/** constructor that operate its parent's constructor
 	 * @param scene - shape that build from geometries shapes, color and ambientLight */
 	public RayTracerBasic(Scene scene) {
