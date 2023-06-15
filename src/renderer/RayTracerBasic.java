@@ -45,7 +45,7 @@ public class RayTracerBasic extends RayTracerBase {
 		double nv = Util.alignZero(n.dotProduct(v)); //the scalar between the direction and the normal (2 vectors)
 		if (nv == 0) 
 			return color;
-		Material material = gp.geometry.getMaterial(); //the material shape of gp
+		Material material = gp.geometry.getMaterial(); //the shape material of gp
 		for (LightSource lightSource : scene.lights) {
 			Vector l = lightSource.getL(gp.point); //the vector from a light source to the point of gp
 			double nl = Util.alignZero(n.dotProduct(l)); //the scalar between the normal and the vector of light source

@@ -178,12 +178,11 @@ public class LightsTests {
     * @author Menuha and Yael */
 	@Test
 	public void sphereAllLight() {
-		Color sphereLightColor1 = new Color(300, 150, 150);
 		scene1.geometries.add(sphere);
-		DirectionalLight d = new DirectionalLight(sphereLightColor1, new Vector(0, -1, -1));
-		PointLight p = new PointLight(sphereLightColor1, new Point(40, -20, 80))
+		DirectionalLight d = new DirectionalLight(new Color(300, 150, 150), new Vector(0, -1, -1));
+		PointLight p = new PointLight(new Color(500, 250, 250), new Point(40, -20, 80))
 		         .setKl(0.005).setKq(0.000025);
-		SpotLight s = new SpotLight(sphereLightColor1, new Point(-50, -50, 50), new Vector(1, 1, -1.5));
+		SpotLight s = new SpotLight(new Color(500, 300, 0), new Point(-50, -50, 50), new Vector(1, 1, -1.5));
 		s.setKl(0.00000075).setKq(0.000000000025);
 		
 		scene1.lights.addAll(List.of(s, d, p));
