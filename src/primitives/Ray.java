@@ -8,17 +8,33 @@ import geometries.Intersectable.GeoPoint;
  * called the beginning / head of the ray
  * @author Menuha and Yael */
 public class Ray {
-	// Head of the ray
+	/** Rayhead offset size for shading rays */
+	private static final double DELTA = 0.1;
+	/** Head of the ray */
 	private final Point p0;
-	// Direction
+	/** Direction */
 	private final Vector dir;
 	
-	/** Constructor that creates a Ray from a normalized vector point.
+	/** Constructor that creates a Ray from a point and normalized vector.
 	 * @param p0 - the head of the Ray
 	 * @param dir - direction Vector which does not have to be normalized */
 	public Ray(Point p0, Vector dir) {
 		this.p0 = p0;
 		this.dir = dir.normalize();
+	}
+	
+	/** create a ray while moving the head point in the normal direction with DELTA or -DELTA (depend on the dotProduct) 
+	 * @param p0 - a point of ray
+	 * @param dir - a direction of ray
+	 * @param normal - normal to the head point */
+	public Ray(Point p0, Vector dir, Vector n) {
+		this.dir = dir.normalize();
+		double nl = Util.alignZero(n.dotProduct(this.dir)); //the scalar between the normal and the vector of light source
+		if (!Util.isZero(nl)) {
+			Vector delta = n.scale(nl > 0 ? DELTA : -DELTA); //get the rayhead closer to the light
+			this.p0 = p0.add(delta);
+		} else
+			this.p0 = p0;
 	}
 	
 	/** @return the head of the Ray */

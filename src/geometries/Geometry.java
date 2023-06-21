@@ -7,7 +7,7 @@ import primitives.*;
 public abstract class Geometry extends Intersectable {
 	/** emission color value */
 	protected Color emission = Color.BLACK;
-	
+	/** material of the shape */
 	private Material material =  new Material();
 	
 	/** Find the normal (vertical) vector to the geometric shape at point p.

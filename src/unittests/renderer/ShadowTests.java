@@ -11,7 +11,7 @@ import renderer.*;
 import scene.Scene;
 
 /** Testing basic shadows
- * @author Dan */
+ * @author Dan and Menuha and Yael */
 public class ShadowTests {
    private Intersectable sphere     = new Sphere(new Point(0, 0, -200), 60d)                                         //
       .setEmission(new Color(BLUE))                                                                                  //
