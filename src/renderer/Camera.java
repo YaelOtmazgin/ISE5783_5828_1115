@@ -2,8 +2,6 @@ package renderer;
 
 import java.util.MissingResourceException;
 
-//import java.util.MissingResourceException;
-
 import primitives.*;
 
 /** Shoot rays from the center of projection through the view plane pixels for
@@ -123,8 +121,6 @@ public class Camera {
 	/** The function defines every pixel's color
 	 * @throws MissingResourceException if one of the fields is empty */
 	public void renderImage () {
-		if (this == null)
-			throw new MissingResourceException("this function must have values in all fields", "Camera", "camera");
 		if (imageWriter == null)
 			throw new MissingResourceException("this function must have values in all fields", "ImageWriter", "imageWriter");
 		if (rayTracer == null)

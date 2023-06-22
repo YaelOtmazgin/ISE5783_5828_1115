@@ -4,8 +4,6 @@ import primitives.*;
 import scene.Scene;
 import lighting.*;
 
-import java.util.List;
-
 import geometries.Intersectable.GeoPoint;
 
 /** A basic class responsible for tracking the ray that inherits from RayTracerBase
@@ -126,6 +124,7 @@ public class RayTracerBasic extends RayTracerBase {
 	 *         <li>true - if unshaded
 	 *         <li>false - if shaded
 	 */
+	@SuppressWarnings("unused")
 	private boolean unshaded(GeoPoint gp, LightSource light, Vector l, Vector n, double nl) {
 		Vector lightDirection = l.scale(-1); // from point to light source
 		Ray lightRay = new Ray(gp.point, lightDirection, n); //get light ray closer to the light
@@ -140,6 +139,12 @@ public class RayTracerBasic extends RayTracerBase {
 		return true;
 	}
 	
+	/**calculates light contribution with consideration for transparency and reflection
+	 * @param gp    - point in geometry shape
+	 * @param ray          - ray from the camera
+	 * @param level        - level of Recursion.
+	 * @param k            - the current attenuation level
+	 * @return with consideration for transparency and reflection*/
 	private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k) {
 		Color color = Color.BLACK;
 		Vector n = gp.geometry.getNormal(gp.point); //the normal vector of gp at point p
