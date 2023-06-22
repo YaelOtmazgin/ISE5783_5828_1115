@@ -15,6 +15,7 @@ public class RayTracerBasic extends RayTracerBase {
 	private static final int MAX_CALC_COLOR_LEVEL = 10;
 	/** Stopping condition for the recursion */
 	private static final double MIN_CALC_COLOR_K = 0.001;
+	/** One's triad (1,1,1) */
 	private static final Double3 INITIAL_K = Double3.ONE;
 
 	
@@ -22,14 +23,6 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @param scene - shape that build from geometries shapes, color and ambientLight */
 	public RayTracerBasic(Scene scene) {
 		super(scene);
-	}
-
-	@Override
-	public Color traceRay(Ray ray) {
-		GeoPoint closestPoint = findClosestIntersection(ray);
-		if (closestPoint == null)
-			return scene.background;
-		return calcColor(closestPoint, ray);
 	}
 	
 	/** Search the closest GeoPoint in the scene to the ray
@@ -40,6 +33,14 @@ public class RayTracerBasic extends RayTracerBase {
 		if (intersections == null)
 			return null;
 		return ray.findClosestGeoPoint(intersections);
+	}
+
+	@Override
+	public Color traceRay(Ray ray) {
+		GeoPoint closestPoint = findClosestIntersection(ray);
+		if (closestPoint == null)
+			return scene.background;
+		return calcColor(closestPoint, ray);
 	}
 	
 	/** Calculates the color of a given point, including the effect of the light sources (helper function for calcColor)
