@@ -3,7 +3,7 @@ package lighting;
 import primitives.*;
 
 /** The interface represents common operations on types of light sources
- * @author Menucha and Yael */
+ * @author Menuha and Yael */
 public interface LightSource {
 	
 	/** Get light intensity at a point (IL)

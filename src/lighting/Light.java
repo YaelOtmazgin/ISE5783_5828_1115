@@ -3,7 +3,7 @@ package lighting;
 import primitives.*;
 
 /** The class represents all light sources at an abstract level
- * @author Menucha and Yael */
+ * @author Menuha and Yael */
 abstract class Light {
 	/** the intensity of the light source */
 	private Color intensity;
