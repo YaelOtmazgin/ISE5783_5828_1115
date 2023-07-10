@@ -39,17 +39,16 @@ class EffectsTest {
 					.setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(0.6).setKr(0)),
 				new Triangle(new Point(-50, 50, 115), new Point(150, 150, 135), new Point(200, 200, 130))
 					.setEmission(new Color(218,165,32))
-					.setMaterial(new Material().setKd(0).setKs(0.8).setShininess(60)) 
-						
+					.setMaterial(new Material().setKd(0).setKs(0.8).setShininess(60)) 					
 				);
 		scene.lights.add(new SpotLight(new Color(700, 400, 400),new Point(40,-40,-160), new Vector(-1, 1, 4))
 				.setKc(1).setKl(4E-4).setKq(2E-5));
 		scene.lights.add(new SpotLight(new Color(700, 400, 400),new Point(300, 30,0), new Vector(-2, 3, 3))
 				.setKc(1).setKl(4E-4).setKq(2E-5));
 		camera.setImageWriter(new ImageWriter("bil", 600, 600)) 
-			.setRayTracer(new RayTracerBasic(scene)); 
-		camera.renderImage(); //
-		camera.writeToImage();
+			.setRayTracer(new RayTracerBasic(scene))
+			.renderImage()
+			.writeToImage();
 		
 	}
 	
@@ -75,9 +74,9 @@ class EffectsTest {
 	    scene.lights.add(new SpotLight(new Color(400, 400, 700), new Point(-200, 0, -100), new Vector(2, 0, 1))
 	            .setKc(1).setKl(4E-4).setKq(2E-5));
 	    camera.setImageWriter(new ImageWriter("ourImage", 600, 600))
-	            .setRayTracer(new RayTracerBasic(scene));
-	    camera.renderImage();
-	    camera.writeToImage();
+	            .setRayTracer(new RayTracerBasic(scene))
+	            .renderImage()
+	            .writeToImage();
 	}
 	
 	@Test
@@ -101,9 +100,9 @@ class EffectsTest {
 	        scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(300, 30, 0), new Vector(-2, 3, 3))
 	                .setKc(1).setKl(4E-4).setKq(2E-5));
 	        camera.setImageWriter(new ImageWriter("differentImage", 1000, 1000))
-	                .setRayTracer(new RayTracerBasic(scene));
-	        camera.renderImage();
-	        camera.writeToImage();
+	                .setRayTracer(new RayTracerBasic(scene))
+	                .renderImage()
+	                .writeToImage();
 	    } catch (Exception ex) {
 	    }
 	}

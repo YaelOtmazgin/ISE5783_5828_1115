@@ -46,17 +46,14 @@ public class Camera {
 		return vRight;
 	}
 	
-	/**
-	 * A setter function for parameter numOfRays
-	 * this function return the object - this for builder pattern
-	 * 
+	/** Setter for number of rays
 	 * @param numOfRays int value
-	 * */
+	 * @return the object - this, for builder pattern */
 	public Camera setNumOfRays(int numOfRays){
 		if(numOfRays == 0)
-			this.numOfRays=1;
+			this.numOfRays = 1;
 		else
-		 this.numOfRays = numOfRays;
+			this.numOfRays = numOfRays;
 		return this;
 	}
 
@@ -103,11 +100,11 @@ public class Camera {
 		// image center
 		Point pc = p0.add(vTo.scale(distance));
 		// ratio
-		var ry = height / nY;
-		var rx = width / nX;
+		var rY = height / nY;
+		var rX = width / nX;
 		// pixel(i,j) center
-		var yI = (i - (nY - 1) / 2.0) * ry;
-		var xJ = (j - (nX - 1) / 2.0) * rx;
+		var yI = (i - (nY - 1) / 2.0) * rY;
+		var xJ = (j - (nX - 1) / 2.0) * rX;
 
 		Point pIJ = pc;
 		if (xJ != 0)
@@ -115,9 +112,9 @@ public class Camera {
 		if (yI != 0)
 			pIJ = pIJ.add(vUp.scale(-yI));
 
-		Vector vij = pIJ.subtract(p0);
+		Vector vIJ = pIJ.subtract(p0);
 
-		return new Ray(p0, vij);
+		return new Ray(p0, vIJ);
 	}
 	
 	/** sets imageWriter value
@@ -138,37 +135,35 @@ public class Camera {
 	
 	/** The function transfers beams from camera to pixel, tracks the beam
 	 *  and receives the pixel color from the point of intersection.
-	 * @throws MissingResourceException if one of the fields is empty */
-	public void renderImage () {
+	 * @throws MissingResourceException if one of the fields is empty
+	 * @return the camera itself */
+	public Camera renderImage() {
 		if (imageWriter == null)
 			throw new MissingResourceException("this function must have values in all fields", "ImageWriter", "imageWriter");
 		if (rayTracer == null)
 			throw new MissingResourceException("this function must have values in all fields", "RayTracerBase", "rayTracer");
-		//throw new UnsupportedOperationException();
 		for (int i = 0; i < imageWriter.getNx(); i++) {
 			for (int j = 0; j < imageWriter.getNy(); j++) {
 				/*Color rayColor = castRay(j, i);
 				imageWriter.writePixel(j, i, rayColor); */
-				if(numOfRays == 1 || numOfRays == 0){
+				if(numOfRays == 1 || numOfRays == 0) {
 					Ray ray = constructRay(imageWriter.getNx(), imageWriter.getNy(), j, i);
 					Color rayColor = rayTracer.traceRay(ray);
 					imageWriter.writePixel(j, i, rayColor); 
-					}
-				else{	
-					List<Ray> rays = constructBeamThroughPixel(imageWriter.getNx(), imageWriter.getNy(), j, i,numOfRays);
+				} else {	
+					List<Ray> rays = constructBeamThroughPixel(imageWriter.getNx(), imageWriter.getNy(), j, i, numOfRays);
 					Color rayColor = rayTracer.traceRay(rays);
 					imageWriter.writePixel(j, i, rayColor); 
-					}
+				}
 			}
-		}		
+		}
+		return this;
 	}		
 		
-	
-	
-	/** returns color of pixel in current tracing ray
+	/* returns color of pixel in current tracing ray
 	 * @param j  - the pixel's index in the column
 	 * @param i  - the pixel's index in the row
-	 * @return */
+	 * @return 
 	/*private Color castRay(int j, int i) {
 		Ray ray = this.constructRay(imageWriter.getNx(), imageWriter.getNy(), j, i);
 		Color rayColor = rayTracer.traceRay(ray);
@@ -198,81 +193,63 @@ public class Camera {
 		
 		imageWriter.writeToImage();
 	}
-	public List<Ray> constructBeamThroughPixel (int nX, int nY, int j, int i, int raysAmount){
-
+	
+	/** The function builds a beam of rays through a given pixel (j,i) within the grid of nX and nY 
+	 * @param nX - the size of width
+	 * @param nY - the size of height
+	 * @param j  - the index in the column
+	 * @param i  - the index in the row
+	 * @param numOfRays the number of constructed rays wanted in the beam of rays
+	 * @return ray that passes in given pixel in the grid */
+	public List<Ray> constructBeamThroughPixel (int nX, int nY, int j, int i, int numOfRays){
 		//The distance between the screen and the camera cannot be 0
-        if (Util.isZero(distance)){
+        if (Util.isZero(distance))
             throw new IllegalArgumentException("distance cannot be 0");
-        }
 
-		int numOfRays = (int)Math.floor(Math.sqrt(raysAmount)); //num of rays in each row or column
-
-		if (numOfRays==1) 
+		int raysIn = (int)Math.floor(Math.sqrt(numOfRays)); //num of rays in each row or column
+		if (raysIn == 1) 
 			return List.of(constructRay(nX, nY, j, i));
-//
-		/*Point Pc;
-		if (isZero(distance))
-			Pc=p0;
-		else
-			Pc=p0.add(vTo.scale(distance));*/
-
-		double Ry= height/nY;
-		double Rx=width/nX;
-		double Yi=(i-(nY-1)/2d)*Ry;
-		double Xj=(j-(nX-1)/2d)*Rx;
-
-//        
-        double PRy = Ry / numOfRays; //height distance between each ray
-        double PRx = Rx / numOfRays; //width distance between each ray
+		
+		double rY = height / nY; //The number of pixels on the y axis
+		double rX = width / nX; //The number of pixels on the x axis
+		double yI = (i - (nY - 1) / 2d) * rY; //distance of original pixel from (0,0) on Y axis
+		double xJ = (j - (nX - 1) / 2d) * rX; //distance of original pixel from (0,0) on x axis
+        double yDistance = rY / raysIn; //height distance between the rays
+        double xDistance = rX / raysIn; //width distance between the rays
 
         List<Ray> sample_rays = new LinkedList<>();
-//
-//        double Ry = height/nY; //The number of pixels on the y axis
-//        double Rx = width/nX;  //The number of pixels on the x axis
-//        double yi =  ((i - nY/2d)*Ry); //distance of original pixel from (0,0) on Y axis
-////     double xj=   ((j - nX/2d)*Rx); //distance of original pixel from (0,0) on x axis
-//        double pixel_Ry = Ry/num_of_sample_rays; //The height of each grid block we divided the parcel into
-//        double pixel_Rx = Rx/num_of_sample_rays; //The width of each grid block we divided the parcel into
-
-        for (int row = 0; row < numOfRays; ++row) {//foreach place in the pixel grid
-            for (int column = 0; column < numOfRays; ++column) {
-                sample_rays.add(constructRaysThroughPixel(PRy,PRx,Yi, Xj, row, column));//add the ray
+        for (int row = 0; row < raysIn; ++row) { //foreach place in the pixel grid
+            for (int column = 0; column < raysIn; ++column) {
+                sample_rays.add(constructRaysThroughPixel(yDistance, xDistance, yI, xJ, row, column)); //add the ray
             }
         }
-        sample_rays.add(constructRay(nX, nY, j, i));//add the center screen ray
+        sample_rays.add(constructRay(nX, nY, j, i)); //add the center screen ray
         return sample_rays;
 	}
 
-	 /**
-     * In this function we treat each pixel like a little screen of its own and divide it to smaller "pixels".
-     * Through each one we construct a ray. This function is similar to ConstructRayThroughPixel.
-     * @param Ry height of each grid block we divided the pixel into
-     * @param Rx width of each grid block we divided the pixel into
-     * @param yi distance of original pixel from (0,0) on Y axis
-     * @param xj distance of original pixel from (0,0) on X axis
-     * @param j j coordinate of small "pixel"
-     * @param i i coordinate of small "pixel"
-     * @param distance distance of screen from camera
-     * @return beam of rays through pixel
-     */
-    private Ray constructRaysThroughPixel(double Ry,double Rx, double yi, double xj, int j, int i){
+	/** In this function we treat each pixel like a little screen of its own and divide it to smaller "pixels".
+    * Through each one we construct a ray. This function is similar to ConstructRayThroughPixel.
+    * @param rY height of each grid block we divided the pixel into
+    * @param rX width of each grid block we divided the pixel into
+    * @param yI distance of original pixel from (0,0) on Y axis
+    * @param xJ distance of original pixel from (0,0) on X axis
+    * @param j - j coordinate of small "pixel"
+    * @param i - i coordinate of small "pixel"
+    * @return beam of rays through pixel */
+    private Ray constructRaysThroughPixel(double rY, double rX, double yI, double xJ, int j, int i) {
         Point Pc = p0.add(vTo.scale(distance)); //the center of the screen point
 
-        double y_sample_i =  (i *Ry + Ry/2d); //The pixel starting point on the y axis
-        double x_sample_j=   (j *Rx + Rx/2d); //The pixel starting point on the x axis
+        double y_sample_i =  (i * rY + rY / 2d); //The pixel starting point on the y axis
+        double x_sample_j = (j * rX + rX / 2d); //The pixel starting point on the x axis
 
-        Point Pij = Pc; //The point at the pixel through which a beam is fired
+        Point pIJ = Pc; //The point at the pixel through which a beam is fired
         //Moving the point through which a beam is fired on the x axis
-        if (!Util.isZero(x_sample_j + xj))
-        {
-            Pij = Pij.add(vRight.scale(x_sample_j + xj));
-        }
+        if (!Util.isZero(x_sample_j + xJ))
+        	pIJ = pIJ.add(vRight.scale(x_sample_j + xJ));
         //Moving the point through which a beam is fired on the y axis
-        if (!Util.isZero(y_sample_i + yi)){
-            Pij = Pij.add(vUp.scale(-y_sample_i -yi ));
-        }
-        Vector Vij = Pij.subtract(p0);
-        return new Ray(p0,Vij);//create the ray throw the point we calculate here
-    }
-	
+        if (!Util.isZero(y_sample_i + yI))
+        	pIJ = pIJ.add(vUp.scale(- y_sample_i - yI));
+        Vector vIJ = pIJ.subtract(p0);
+        return new Ray(p0, vIJ);//create the ray throw the point we calculate here
+    }	
 }
