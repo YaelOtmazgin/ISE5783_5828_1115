@@ -3,6 +3,8 @@ package renderer;
 import primitives.*;
 import scene.Scene;
 
+import java.util.List;
+
 /** An abstract base class responsible for tracking the ray
  * @author Menuha and Yael */
 public abstract class RayTracerBase {
@@ -18,5 +20,7 @@ public abstract class RayTracerBase {
 	/** returns color of pixel in current tracing ray
 	 * @param ray - ray on tracing
 	 * @return the color of pixel in current tracing ray */
-	public abstract Color traceRay(Ray ray); 	
+	public abstract Color traceRay(Ray ray); 
+	/**Color for many rays*/
+	public abstract Color traceRay(List<Ray> rays);
 }

@@ -4,6 +4,8 @@ import primitives.*;
 import scene.Scene;
 import lighting.*;
 
+import java.util.List;
+
 import geometries.Intersectable.GeoPoint;
 
 /** A basic class responsible for tracking the ray that inherits from RayTracerBase
@@ -40,6 +42,22 @@ public class RayTracerBasic extends RayTracerBase {
 			return scene.background;
 		return calcColor(closestPoint, ray);
 	}
+	 /**
+	  * @param rays List of surrounding rays
+	  * @return average color
+	  */
+	 public Color traceRay(List<Ray> rays) {
+	 	if(rays == null)
+	 		return scene.background;
+	     Color color = scene.background;
+	     for (Ray ray : rays) 
+	     	color = color.add(traceRay(ray));
+	     
+	     color = color.add(scene.ambientLight.getIntensity());
+	     int size = rays.size();
+	     return color.reduce(size);
+
+	 }
 	
 	/** Calculates the color of a given point, including the effect of the light sources (helper function for calcColor)
 	 * @param gp - geometry shape with a point on it
@@ -59,6 +77,7 @@ public class RayTracerBasic extends RayTracerBase {
 	private Color calcColor(GeoPoint gp, Ray ray, int level, Double3 k) {
 		if (gp == null)
 			return scene.background;
+		//Color KaIa = myscene.ambientLight.getIntensity();
 		Color color = calcLocalEffects(gp, ray, k);
 		return 1 == level ? color : color.add(calcGlobalEffects(gp, ray, level, k));
 	}
