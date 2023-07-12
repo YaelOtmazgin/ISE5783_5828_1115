@@ -42,7 +42,7 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	@Override
-	public Color traceRay(List<Ray> rays) {
+	public Color traceRays(List<Ray> rays) {
 		if(rays == null)
 			return scene.background;
 	    Color color = scene.background;

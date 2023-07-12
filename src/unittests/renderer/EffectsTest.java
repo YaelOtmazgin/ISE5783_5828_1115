@@ -9,7 +9,7 @@ import renderer.*;
 import scene.Scene;
 
 /** Testing all effects
- * @author Dan and Menuha and Yael */
+ * @author Menuha and Yael */
 class EffectsTest {
 	private Scene scene = new Scene("Test scene");
 	

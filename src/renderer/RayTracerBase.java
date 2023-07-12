@@ -17,14 +17,13 @@ public abstract class RayTracerBase {
 		this.scene = scene;
 	}
 	
-	/** returns color of pixel in current tracing ray
-	 * @param ray - ray on tracing
+	/** function that traces ray and return color of the closest point
+     * @param ray ray to trace
 	 * @return the color of pixel in current tracing ray */
 	public abstract Color traceRay(Ray ray); 
 	
-	/** Calculating the color of the starting-point by the given main-ray constructed from it, a beam of rays
-	 * sorrunding this ray and the beam's intersections with the scene
+	/** function that traces rays and return average color of pixel
 	 * @param rays The list of rays that was constructed in a beam of rays
 	 * @return The color of the starting-point of the given main-ray */
-	public abstract Color traceRay(List<Ray> rays);
+	public abstract Color traceRays(List<Ray> rays);
 }

@@ -65,6 +65,15 @@ public class ShadowTests {
                            new Triangle(new Point(-70, -40, 0), new Point(-40, -70, 0), new Point(-68, -68, -4)), //
                            new Point(-100, -100, 175));
    }
+   
+   /*@Test
+	public void sphereTriangleSpot1___() {
+		camera.setAntiAliasingFactor(9);
+		sphereTriangleHelper("shadowSphereTriangleSpot1!!!!!!!!", //
+				new Triangle(new Point(-70, -40, 0), new Point(-40, -70, 0), new Point(-68, -68, -4)), //
+				new Point(-100, -100, 175));
+		camera.setAntiAliasingFactor(1);
+	}*/
 
    /** Sphere-Triangle shading - move spot even more close */
    @Test
