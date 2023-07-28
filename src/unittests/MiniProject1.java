@@ -182,7 +182,7 @@ class MiniProject1 {
                 new Cylinder(new Ray(new Point(150, -240, 10), new Vector(-0.5, -2.33, 0)), 7d, 185).setEmission(new Color(BLACK))//
                         .setMaterial(new Material().setKd(0.4).setKs(0.25).setShininess(30)),
                 new Cylinder(new Ray(new Point(40,-250,10), new Vector(0.23, -2.73, 0)), 7d, 185).setEmission(new Color(BLACK))//
-                        .setMaterial(new Material().setKd(0.4).setKs(0.25).setShininess(30)),
+                        .setMaterial(new Material().setKd(0.4).setKs(0.25).setShininess(30)), 
 
                 new Sphere(new Point(350, -200, 10), 20d).setEmission(new Color(GREEN).reduce(3)) //
                         .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(20).setKt(0.2)),//
