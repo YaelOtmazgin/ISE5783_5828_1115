@@ -105,11 +105,11 @@ public class Color {
    /**Checks if the difference between the colors is [almost] zero
     * @param color
     * @return true if the difference is or zero or almost, else false*/
-   /*public boolean isAlmostEquals(primitives.Color color) {
+   public boolean isAlmostEquals(primitives.Color color) {
 	return (Math.abs(rgb.d1-color.rgb.d1)<= 2) &&
 			(Math.abs(rgb.d2-color.rgb.d2)<= 2) &&
 			(Math.abs(rgb.d3-color.rgb.d3)<= 2);  
-   }*/
+   }
 
    @Override
    public String toString() { return "rgb:" + rgb; }

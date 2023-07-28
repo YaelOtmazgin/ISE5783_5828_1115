@@ -208,10 +208,11 @@ class MiniProject2 {
                 new Point( 0, 0, 500), new Vector(0, 0, -1))
                 .setKl(0.001).setKq(0.00004));
 
-        ImageWriter imageWriter = new ImageWriter("adaptive-super-sampling10", 600, 600);
+        ImageWriter imageWriter = new ImageWriter("thread3-aliasing9", 600, 600);
         camera.setImageWriter(imageWriter); //
         camera.setRayTracer(new RayTracerBasic(scene)); //
-        camera.setAntiAliasingFactor(10);
+        camera.setAntiAliasingFactor(9);
+        camera.setMultithreading(3);
         camera.renderImage(); //
         camera.writeToImage();
         }
