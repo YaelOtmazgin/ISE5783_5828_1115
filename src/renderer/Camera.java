@@ -25,7 +25,6 @@ public class Camera {
 
     //for the Adaptive Super Sampling acceleration decide the maximum depth of the recursion
     private int maximumAdaptiveDepth =4;
-
     private double printInterval = 1;
 	
 	/** Pixel manager for supporting:
