@@ -34,10 +34,10 @@ public class ReflectionRefractionTests {
                        new SpotLight(new Color(1000, 600, 0), new Point(-100, -100, 500), new Vector(-1, -1, -2)) //
                           .setKl(0.0004).setKq(0.0000006));
 
-      camera.setImageWriter(new ImageWriter("refractionTwoSpheres", 500, 500)) //
-         .setRayTracer(new RayTracerBasic(scene)) //
-         .renderImage()
-      	 .writeToImage();
+      camera.setImageWriter(new ImageWriter("refractionTwoSpheres", 500, 500)); //
+      camera.setRayTracer(new RayTracerBasic(scene)); //
+      camera.renderImage();
+      camera.writeToImage();
    }
 
    /** Produce a picture of a sphere lighted by a spot light */
@@ -97,8 +97,8 @@ public class ReflectionRefractionTests {
 
       ImageWriter imageWriter = new ImageWriter("refractionShadow", 600, 600);
       camera.setImageWriter(imageWriter) //
-         .setRayTracer(new RayTracerBasic(scene)) //
-         .renderImage() //
-         .writeToImage();
+      .setRayTracer(new RayTracerBasic(scene)) //
+      .renderImage() //
+      .writeToImage();
    }
 }

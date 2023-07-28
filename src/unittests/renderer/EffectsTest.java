@@ -45,12 +45,11 @@ class EffectsTest {
 				.setKc(1).setKl(4E-4).setKq(2E-5));
 		scene.lights.add(new SpotLight(new Color(700, 400, 400),new Point(300, 30,0), new Vector(-2, 3, 3))
 				.setKc(1).setKl(4E-4).setKq(2E-5));
-		camera.setImageWriter(new ImageWriter("bil", 600, 600)) 
-			.setRayTracer(new RayTracerBasic(scene))
-			.renderImage()
-			.writeToImage();
-		
-	}
+		camera.setImageWriter(new ImageWriter("bil", 600, 600)); 
+		camera.setRayTracer(new RayTracerBasic(scene));
+		camera.renderImage();
+		camera.writeToImage();
+		}
 	
 	@Test
 	public void OurPicture() {
@@ -73,15 +72,14 @@ class EffectsTest {
 	            .setKc(1).setKl(4E-4).setKq(2E-5));
 	    scene.lights.add(new SpotLight(new Color(400, 400, 700), new Point(-200, 0, -100), new Vector(2, 0, 1))
 	            .setKc(1).setKl(4E-4).setKq(2E-5));
-	    camera.setImageWriter(new ImageWriter("ourImage", 600, 600))
-	            .setRayTracer(new RayTracerBasic(scene))
-	            .renderImage()
-	            .writeToImage();
-	}
+	    camera.setImageWriter(new ImageWriter("ourImage", 600, 600));
+	    camera.setRayTracer(new RayTracerBasic(scene));
+	    camera.renderImage();
+	    camera.writeToImage();
+	    }
 	
 	@Test
 	public void DifferentPicture() {
-	    try {
 	        Camera camera = new Camera(new Point(0, 0, -5000), new Vector(0, 0, 1), new Vector(0, -1, 0));
 	        camera.setVPDistance(1000).setVPSize(200, 200);
 	        scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), new Double3(0.15)));
@@ -99,14 +97,9 @@ class EffectsTest {
 	                .setKc(1).setKl(4E-4).setKq(2E-5));
 	        scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(300, 30, 0), new Vector(-2, 3, 3))
 	                .setKc(1).setKl(4E-4).setKq(2E-5));
-	        camera.setImageWriter(new ImageWriter("differentImage", 1000, 1000))
-	                .setRayTracer(new RayTracerBasic(scene))
-	                .renderImage()
-	                .writeToImage();
-	    } catch (Exception ex) {
-	    }
-	}
-
-
-	
+	        camera.setImageWriter(new ImageWriter("differentImage", 1000, 1000));
+	        camera.setRayTracer(new RayTracerBasic(scene));
+	        camera.renderImage();
+	        camera.writeToImage();
+	        }	
 }

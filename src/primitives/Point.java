@@ -74,4 +74,13 @@ public class Point {
 	public double distance(Point p) {
 		return Math.sqrt(this.distanceSquared(p));
 	}	
+	/**Checks if the difference between the points is [almost] zero
+	    * @param color
+	    * @return true if the difference is or zero or almost, else false*/  
+	/*public boolean isAlmostEquals(Point point) {
+
+        return  (Util.isZero(xyz.d1-point.getX())) &&
+                (Util.isZero(xyz.d2-point.getY())) &&
+                (Util.isZero(xyz.d3-point.getZ()));
+    }*/
 }
