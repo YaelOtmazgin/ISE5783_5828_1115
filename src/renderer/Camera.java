@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import primitives.*;
-
 /** Shoot rays from the center of projection through the view plane pixels for
  * "see" objects in the this 3D world 
  * @author Menuha and Yael */
@@ -21,6 +20,23 @@ public class Camera {
 	private ImageWriter imageWriter;
 	private RayTracerBase rayTracer;
 	private int antiAliasingFactor = 1;
+	//boolean parameter if to operate the Adaptive Super Sampling acceleration
+    private boolean isAdaptiveSuperSampling= false;
+
+    //for the Adaptive Super Sampling acceleration decide the maximum depth of the recursion
+    private int maximumAdaptiveDepth =4;
+
+    private double printInterval = 1;
+	
+	/** Pixel manager for supporting:
+	 * <ul>
+	 * <li>multi-threading</li>
+	 * <li>debug print of progress percentage in Console window/tab</li>
+	 * <ul>*/
+	 private PixelManager pixelManager;
+	 
+	//number of threads we are using in the operation. Initialize to 0
+	    private int threadCount=0;
 
 	/** Location of the camera lens
 	 * @return the p0 a location of the camera lens */
@@ -56,7 +72,59 @@ public class Camera {
 			this.antiAliasingFactor = antiAliasingFactor;
 		return this;
 	}
+	
+	/**
+     * Sets the boolean of the adaptive super sampaling  .
+     *
+     * @param  adaptiveSuperSampling amont of race
+     * @return the camera instance with the updated boolean of adaptiveSuperSampeling
+     */
+    public Camera setAdaptiveSuperSampling(boolean adaptiveSuperSampling) {
+        isAdaptiveSuperSampling = adaptiveSuperSampling;
 
+        if (adaptiveSuperSampling==true) {
+            //initialize the amoutRays to 1 that will help to use just one feature
+        	antiAliasingFactor = 1;
+        }
+
+        return this;
+    }
+
+    /**
+     * Sets the value of the maximumAdaptive.
+     *
+     * @param  maximumAdaptiveDepth amonut of the maximum adaptive super sampling
+     * @return the camera instance with the updated boolean of adaptiveSuperSampeling
+     */
+    public Camera setMaximumAdaptiveDepth(int maximumAdaptiveDepth) {
+        this.maximumAdaptiveDepth = maximumAdaptiveDepth;
+        return this;
+    }
+
+    /**
+     * Sets the value of the threadCount.
+     *
+     * @param  threadCount amonut for the multiThreading
+     * @return the camera instance with the updated count of the multi-threads
+     */
+    public Camera setMultithreading(int threadCount) {
+        this.threadCount = threadCount;
+        return this;
+    }
+
+    /**
+     * Sets the value print interval help to debug information.
+     *
+     * @param k The value to set the printInterval.
+     * @return The updated Camera .
+     */
+    public Camera setDebugPrint(double k)
+    {
+        this.printInterval = k;
+        return this;
+    }
+	
+	
 	/** A camera constructor that receives two vectors in the direction of the
 	 * camera(up,to) and point3d for the camera lens 
 	 * @param p0  - location of the camera lens
@@ -112,16 +180,20 @@ public class Camera {
 	 * @param j  - the pixel's index in the column
 	 * @param i  - the pixel's index in the row
 	 * @return */
-	private Color castRay(int nX, int nY, int j, int i) {
+	private void castRay(int nX, int nY, int j, int i) {
 		Color rayColor;
 		if (antiAliasingFactor == 1) {
 			Ray ray = this.constructRay(nX, nY, j, i);
 			rayColor = rayTracer.traceRay(ray);
-		} else {
+			imageWriter.writePixel(j, i, rayColor);
+		} 
+		else {
 			List<Ray> rays = this.constructRays(nX, nY, j, i);
 			rayColor = rayTracer.traceRays(rays);
 		}
-		return rayColor;
+		
+		imageWriter.writePixel(j, i, rayColor);
+		pixelManager.pixelDone();
 	}
 	
 	/** function that calculates the pixels location
@@ -186,12 +258,53 @@ public class Camera {
         }
         return rays;
     }
-	
+    
 	/** The function transfers beams from camera to pixel, tracks the beam
 	 *  and receives the pixel color from the point of intersection.
 	 * @throws MissingResourceException if one of the fields is empty
 	 * @return the camera itself */
 	public Camera renderImage() {
+		if (p0 == null || vTo == null || vUp == null || vRight == null || distance == 0 || height == 0 || width == 0 || imageWriter == null || rayTracer == null)
+            throw new MissingResourceException("", "", "Camera is not initialized");
+		final int nX = imageWriter.getNx();
+        final int nY = imageWriter.getNy();
+        
+        //print time interval in seconds, 0 if printing is not required
+        pixelManager = new PixelManager(nY, nX, printInterval);
+        int threadsCount =Runtime.getRuntime().availableProcessors();
+        if(threadsCount==0){
+        	for (int i = 0; i < nX; i++)
+        		for (int j = 0; j < nY; j++) {
+        			castRay(nX, nY, j, i);
+			}
+        }
+        else {
+            var threads = new LinkedList<Thread>(); // list of threads
+            while (threadsCount-- > 0) // add appropriate number of threads
+                threads.add(new Thread(() -> { // add a thread with its code
+                    PixelManager.Pixel pixel; // current pixel(row,col)
+                    // allocate pixel(row,col) in loop until there are no more pixels
+                    while ((pixel = pixelManager.nextPixel()) != null){
+                    	castRay(nX, nY, pixel.col(), pixel.row());
+                    }
+                }));
+            // start all the threads
+            for (var thread : threads) thread.start();
+            // wait until all the threads have finished
+            try {
+                for (var thread : threads) thread.join();
+            }
+            catch (InterruptedException ignore) {}
+        }
+        return this;
+	}	
+	
+	
+	/** The function transfers beams from camera to pixel, tracks the beam
+	 *  and receives the pixel color from the point of intersection.
+	 * @throws MissingResourceException if one of the fields is empty
+	 * @return the camera itself */
+	/*public Camera renderImageB() {
 		if (p0 == null || vTo == null || vUp == null || vRight == null || distance == 0 || height == 0 || width == 0 || imageWriter == null || rayTracer == null)
             throw new MissingResourceException("", "", "Camera is not initialized");
 		int nX = imageWriter.getNx();
@@ -203,7 +316,8 @@ public class Camera {
 				imageWriter.writePixel(j, i, rayColor);
 			}
 		return this;
-	}		
+	}*/
+	
 	
 	/** A function that creates a grid of lines
 	 * @param interval int value
@@ -227,5 +341,5 @@ public class Camera {
 			throw new MissingResourceException("this function must have values in all fields", "ImageWriter", "imageWriter");
 		
 		imageWriter.writeToImage();
-	}  
-}
+		}  
+	}

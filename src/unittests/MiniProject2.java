@@ -9,9 +9,10 @@ import renderer.*;
 import scene.Scene;
 import static java.awt.Color.*;
 
-/** test the improvement of mini project 1 - Anti-Aliasing
+/** test the improvement of mini project 2 - Adaptive Super Sampling
  * @author Menuha and Yael */
-class MiniProject1 {
+class MiniProject2 {
+	
 	private Scene scene = new Scene("Test scene")
 			.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.05)))
             .setBackground(new Color(25,50,100));
@@ -182,7 +183,7 @@ class MiniProject1 {
                 new Cylinder(new Ray(new Point(150, -240, 10), new Vector(-0.5, -2.33, 0)), 7d, 185).setEmission(new Color(BLACK))//
                         .setMaterial(new Material().setKd(0.4).setKs(0.25).setShininess(30)),
                 new Cylinder(new Ray(new Point(40,-250,10), new Vector(0.23, -2.73, 0)), 7d, 185).setEmission(new Color(BLACK))//
-                        .setMaterial(new Material().setKd(0.4).setKs(0.25).setShininess(30)), 
+                        .setMaterial(new Material().setKd(0.4).setKs(0.25).setShininess(30)),
 
                 new Sphere(new Point(350, -200, 10), 20d).setEmission(new Color(GREEN).reduce(3)) //
                         .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(20).setKt(0.2)),//
@@ -207,11 +208,11 @@ class MiniProject1 {
                 new Point( 0, 0, 500), new Vector(0, 0, -1))
                 .setKl(0.001).setKq(0.00004));
 
-        ImageWriter imageWriter = new ImageWriter("super-sampling9", 600, 600);
-        camera.setImageWriter(imageWriter) //
-                .setRayTracer(new RayTracerBasic(scene)) //
-                .setAntiAliasingFactor(9)
-                .renderImage() //
-                .writeToImage();
-    }
+        ImageWriter imageWriter = new ImageWriter("adaptive-super-sampling10", 600, 600);
+        camera.setImageWriter(imageWriter); //
+        camera.setRayTracer(new RayTracerBasic(scene)); //
+        camera.setAntiAliasingFactor(10);
+        camera.renderImage(); //
+        camera.writeToImage();
+        }
 }
