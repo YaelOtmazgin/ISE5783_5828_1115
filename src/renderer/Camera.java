@@ -20,6 +20,13 @@ public class Camera {
 	private ImageWriter imageWriter;
 	private RayTracerBase rayTracer;
 	private int antiAliasingFactor = 1;
+	//boolean parameter if to operate the Adaptive Super Sampling acceleration
+    private boolean isAdaptiveSuperSampling= false;
+
+    //for the Adaptive Super Sampling acceleration decide the maximum depth of the recursion
+    private int maximumAdaptiveDepth =4;
+
+    private double printInterval = 1;
 	
 	/** Pixel manager for supporting:
 	 * <ul>
@@ -27,6 +34,9 @@ public class Camera {
 	 * <li>debug print of progress percentage in Console window/tab</li>
 	 * <ul>*/
 	 private PixelManager pixelManager;
+	 
+	//number of threads we are using in the operation. Initialize to 0
+	    private int threadCount=0;
 
 	/** Location of the camera lens
 	 * @return the p0 a location of the camera lens */
@@ -62,6 +72,58 @@ public class Camera {
 			this.antiAliasingFactor = antiAliasingFactor;
 		return this;
 	}
+	
+	/**
+     * Sets the boolean of the adaptive super sampaling  .
+     *
+     * @param  adaptiveSuperSampling amont of race
+     * @return the camera instance with the updated boolean of adaptiveSuperSampeling
+     */
+    public Camera setAdaptiveSuperSampling(boolean adaptiveSuperSampling) {
+        isAdaptiveSuperSampling = adaptiveSuperSampling;
+
+        if (adaptiveSuperSampling==true) {
+            //initialize the amoutRays to 1 that will help to use just one feature
+        	antiAliasingFactor = 1;
+        }
+
+        return this;
+    }
+
+    /**
+     * Sets the value of the maximumAdaptive.
+     *
+     * @param  maximumAdaptiveDepth amonut of the maximum adaptive super sampling
+     * @return the camera instance with the updated boolean of adaptiveSuperSampeling
+     */
+    public Camera setMaximumAdaptiveDepth(int maximumAdaptiveDepth) {
+        this.maximumAdaptiveDepth = maximumAdaptiveDepth;
+        return this;
+    }
+
+    /**
+     * Sets the value of the threadCount.
+     *
+     * @param  threadCount amonut for the multiThreading
+     * @return the camera instance with the updated count of the multi-threads
+     */
+    public Camera setMultithreading(int threadCount) {
+        this.threadCount = threadCount;
+        return this;
+    }
+
+    /**
+     * Sets the value print interval help to debug information.
+     *
+     * @param k The value to set the printInterval.
+     * @return The updated Camera .
+     */
+    public Camera setDebugPrint(double k)
+    {
+        this.printInterval = k;
+        return this;
+    }
+	
 	
 	/** A camera constructor that receives two vectors in the direction of the
 	 * camera(up,to) and point3d for the camera lens 
@@ -208,7 +270,7 @@ public class Camera {
         final int nY = imageWriter.getNy();
         
         //print time interval in seconds, 0 if printing is not required
-        pixelManager = new PixelManager(nY, nX, 0.1);
+        pixelManager = new PixelManager(nY, nX, printInterval);
         int threadsCount =Runtime.getRuntime().availableProcessors();
         if(threadsCount==0){
         	for (int i = 0; i < nX; i++)
