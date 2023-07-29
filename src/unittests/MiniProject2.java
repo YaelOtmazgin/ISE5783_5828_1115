@@ -13,34 +13,23 @@ import static java.awt.Color.*;
  * @author Menuha and Yael */
 class MiniProject2 {
 	
+	private final ImageWriter imageWriter = new ImageWriter("thread3-adaptive-aliasing9", 600, 600);
+
+	private final Camera camera = new Camera(new Point(-6000, -6000, 3200),
+            new Vector(1, 1, -1d/2), new Vector(1, 1, 4)) //
+            .setVPSize(200, 200).setVPDistance(1700)
+            .setImageWriter(imageWriter)
+            .setAdaptive(true)
+            .setMultithreading(3)
+            .setAntiAliasingFactor(9);
+	
 	private Scene scene = new Scene("Test scene")
 			.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.05)))
             .setBackground(new Color(25,50,100));
- 
-	/** produce a simple picture with/without Anti-Aliasing */
-	/*@Test
-	public void antiAliasing() {
-		Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-					 .setVPSize(200, 200).setVPDistance(1000);
-		scene.geometries.add(
-				new Sphere(new Point(0, 0, 0), 80) //
-					.setEmission(new Color(java.awt.Color.yellow)) //
-					.setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(0.6)));
-		scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(60, 50, 0), new Vector(0, 0, -1)) //
-				.setKl(4E-5).setKq(2E-7));
-		ImageWriter imageWriter = new ImageWriter("aa1", 600, 600);
-		camera.setImageWriter(imageWriter) //
-				.setRayTracer(new RayTracerBasic(scene)).setAntiAliasingFactor(1)
-				.renderImage()
-				.writeToImage();
-	}*/
     
 	/** Image of Xylophonoe using anialiasing */
     @Test
     public void xylophone() {
-    	Camera camera = new Camera(new Point(-6000, -6000, 3200),
-                new Vector(1, 1, -1d/2), new Vector(1, 1, 4)) //
-                .setVPSize(200, 200).setVPDistance(1700);
     	scene.geometries.add( //
                 /** Body */
                 new Polygon(
@@ -199,7 +188,7 @@ class MiniProject2 {
         scene.lights.add(new DirectionalLight(new Color(800,600,300),new Vector(-600,400,-300)));
         scene.lights.add(new PointLight(new Color(700, 400, 400), new Point(-550, -300, 500)).setKl(4E-5).setKq(0.0000006));
         scene.lights.add(new SpotLight(new Color(700, 400, 400),
-                new Point(-0, -0, -5000), new Vector(0, 0, 1)) //
+                new Point(-0, -0, -5000), new Vector(0, 0, 1)) 
                 .setKl(4E-5).setKq(2E-7));
         scene.lights.add(new SpotLight( new Color(800, 500, 0),
                 new Point(-50, -50, 25), new Vector(1, 1, -0.5))
@@ -208,12 +197,8 @@ class MiniProject2 {
                 new Point( 0, 0, 500), new Vector(0, 0, -1))
                 .setKl(0.001).setKq(0.00004));
 
-        ImageWriter imageWriter = new ImageWriter("thread3-aliasing9", 600, 600);
-        camera.setImageWriter(imageWriter); //
-        camera.setRayTracer(new RayTracerBasic(scene)); //
-        camera.setAntiAliasingFactor(9);
-        camera.setMultithreading(3);
-        camera.renderImage(); //
+        camera.setRayTracer(new RayTracerBasic(scene));      
+        camera.renderImage(); 
         camera.writeToImage();
-        }
+    }
 }
