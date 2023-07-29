@@ -226,9 +226,9 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 	
 	 @Override
-	    public Color AdaptiveSuperSamplingHelper(Point centerP, double Width, double Height, double minWidth, double minHeight, Point cameraLoc, Vector vRight, Vector Vup, List<Point> prePoints) {
+	    public Color AdaptiveSuperSamplingHelper(Point centerP, double width, double height, double minWidth, double minHeight, Point cameraLoc, Vector vRight, Vector Vup, List<Point> prePoints) {
 	        /////1. if we got to the minimum segment - return  the ray
-	        if (Width < minWidth * 2 || Height < minHeight * 2) {
+	        if (width < minWidth * 2 || height < minHeight * 2) {
 	            return this.traceRay(new Ray(cameraLoc, centerP.subtract(cameraLoc)));
 	        }
 	        /////2. divides the current segment to 4 sub-segments
@@ -238,10 +238,10 @@ public class RayTracerBasic extends RayTracerBase {
 	        Point tempCorner;
 	        for (int i = -1; i <= 1; i += 2) {
 	            for (int j = -1; j <= 1; j += 2) {
-	                tempCorner = centerP.add(vRight.scale(i * Width / 2)).add(Vup.scale(j * Height / 2));
+	                tempCorner = centerP.add(vRight.scale(i * width / 2)).add(Vup.scale(j * height / 2));
 	                cornersList.add(tempCorner);
 	                if (prePoints == null || !isInList(prePoints, tempCorner)) {//add the point just if it's not already exist
-	                    nextCenterPList.add(centerP.add(vRight.scale(i * Width / 4)).add(Vup.scale(j * Height / 4)));
+	                    nextCenterPList.add(centerP.add(vRight.scale(i * width / 4)).add(Vup.scale(j * height / 4)));
 	                    colorList.add(traceRay(new Ray(cameraLoc, tempCorner.subtract(cameraLoc))));
 	                }
 	            }
@@ -265,18 +265,15 @@ public class RayTracerBasic extends RayTracerBase {
 	        /////5. for each of the 4 parts of the grid - continue to the next iteration of the recursion
 	        tempColor = Color.BLACK;
 	        for (Point center : nextCenterPList) {
-	            tempColor = tempColor.add(AdaptiveSuperSamplingHelper(center, Width / 2, Height / 2, minWidth, minHeight, cameraLoc, vRight, Vup, cornersList));
+	            tempColor = tempColor.add(AdaptiveSuperSamplingHelper(center, width / 2, height / 2, minWidth, minHeight, cameraLoc, vRight, Vup, cornersList));
 	        }
 	        return tempColor.reduce(nextCenterPList.size());
 	    }
 	 
-	    /**
-	     * Find a point in the list
-	     *
+	    /** Find a point in the list
 	     * @param pointsList the list
 	     * @param point      the point that we look for
-	     * @return
-	     */
+	     * @return true if the point is in the list */
 	    private boolean isInList(List<Point> pointsList, Point point) {
 	        for (Point tempPoint : pointsList) {
 	            if (point.equals(tempPoint))
