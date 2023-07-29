@@ -92,8 +92,7 @@ public class Cylinder extends Tube {
      * @param base The plane that the cylinder is parallel to.
      * @param ray The ray that intersects the sphere
      * @param center the center of the sphere
-     * @return The intersection point of the ray and the base of the cylinder.
-     */
+     * @return The intersection point of the ray and the base of the cylinder. */
     private GeoPoint baseIntersection(Plane base, Ray ray, Point center) {
         List<GeoPoint> lst = base.findGeoIntersections(ray); //intersection Points with Plane
         if (lst == null) return null;

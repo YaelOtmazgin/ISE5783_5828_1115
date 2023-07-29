@@ -207,10 +207,10 @@ class MiniProject1 {
                 new Point( 0, 0, 500), new Vector(0, 0, -1))
                 .setKl(0.001).setKq(0.00004));
 
-        ImageWriter imageWriter = new ImageWriter("anti-aliasing1", 600, 600);
+        ImageWriter imageWriter = new ImageWriter("anti-aliasing9", 600, 600);
         camera.setImageWriter(imageWriter) //
                 .setRayTracer(new RayTracerBasic(scene)) //
-                .setAntiAliasingFactor(1)
+                .setAntiAliasingFactor(9)
                 .renderImage() //
                 .writeToImage();
     }
