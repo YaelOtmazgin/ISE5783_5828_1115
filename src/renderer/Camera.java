@@ -21,21 +21,16 @@ public class Camera {
 	private RayTracerBase rayTracer;
 	private int antiAliasingFactor = 1;
 	//boolean parameter if to operate the Adaptive Super Sampling acceleration
-    private boolean isAdaptiveSuperSampling= false;
+    private boolean adaptive= false;
+	//number of threads we are using in the operation. Initialize to 0
+    private int threadsCount = 0;
 
-    //for the Adaptive Super Sampling acceleration decide the maximum depth of the recursion
-    private int maximumAdaptiveDepth =4;
-    private double printInterval = 1;
-	
 	/** Pixel manager for supporting:
 	 * <ul>
 	 * <li>multi-threading</li>
 	 * <li>debug print of progress percentage in Console window/tab</li>
 	 * <ul>*/
 	 private PixelManager pixelManager;
-	 
-	//number of threads we are using in the operation. Initialize to 0
-	    private int threadCount=0;
 
 	/** Location of the camera lens
 	 * @return the p0 a location of the camera lens */
@@ -65,7 +60,7 @@ public class Camera {
 	 * @param antiAliasingFactor int value
 	 * @return the object - this, for builder pattern */
 	public Camera setAntiAliasingFactor(int antiAliasingFactor){
-		if(antiAliasingFactor == 0)
+		if(antiAliasingFactor <= 0)
 			this.antiAliasingFactor = 1;
 		else
 			this.antiAliasingFactor = antiAliasingFactor;
@@ -78,51 +73,26 @@ public class Camera {
      * @param  adaptiveSuperSampling amont of race
      * @return the camera instance with the updated boolean of adaptiveSuperSampeling
      */
-    public Camera setAdaptiveSuperSampling(boolean adaptiveSuperSampling) {
-        isAdaptiveSuperSampling = adaptiveSuperSampling;
+    public Camera setAdaptive(boolean adaptiveSuperSampling) {
+    	adaptive = adaptiveSuperSampling;
 
         if (adaptiveSuperSampling==true) {
             //initialize the amoutRays to 1 that will help to use just one feature
         	antiAliasingFactor = 1;
         }
-
         return this;
     }
 
-    /**
-     * Sets the value of the maximumAdaptive.
-     *
-     * @param  maximumAdaptiveDepth amonut of the maximum adaptive super sampling
-     * @return the camera instance with the updated boolean of adaptiveSuperSampeling
-     */
-    public Camera setMaximumAdaptiveDepth(int maximumAdaptiveDepth) {
-        this.maximumAdaptiveDepth = maximumAdaptiveDepth;
-        return this;
-    }
 
-    /**
-     * Sets the value of the threadCount.
-     *
-     * @param  threadCount amonut for the multiThreading
-     * @return the camera instance with the updated count of the multi-threads
-     */
-    public Camera setMultithreading(int threadCount) {
-        this.threadCount = threadCount;
+    /**Sets the value of the threadCount.
+     *@param  threadCount amonut for the multiThreading
+     * @return the camera instance with the updated count of the multi-threads*/
+    public Camera setMultithreading(int threadsCount) {
+    	if (threadsCount > 4 || threadsCount < 0)
+            throw new IllegalArgumentException("The number of threads must be between 1 and 4");
+        this.threadsCount = threadsCount;
         return this;
     }
-
-    /**
-     * Sets the value print interval help to debug information.
-     *
-     * @param k The value to set the printInterval.
-     * @return The updated Camera .
-     */
-    public Camera setDebugPrint(double k)
-    {
-        this.printInterval = k;
-        return this;
-    }
-	
 	
 	/** A camera constructor that receives two vectors in the direction of the
 	 * camera(up,to) and point3d for the camera lens 
@@ -211,9 +181,9 @@ public class Camera {
 		// image center
 		Point pIJ = p0.add(vTo.scale(distance));
 			
-		if (xJ != 0)
+		if (!Util.isZero(xJ))
 			pIJ = pIJ.add(vRight.scale(xJ));
-		if (yI != 0)
+		if (!Util.isZero(yI))
 			pIJ = pIJ.add(vUp.scale(-yI));
 		return pIJ;
 	}
@@ -248,9 +218,9 @@ public class Camera {
                 y = -(rowNumber - (antiAliasingFactor - 1d) / 2) * rY;
                 x = (colNumber - (antiAliasingFactor - 1d) / 2) * rX;
                 pIJ = centralPixel;
-                if (y != 0) 
+                if (!Util.isZero(y)) 
                 	pIJ = pIJ.add(vUp.scale(y));
-                if (x != 0) 
+                if (!Util.isZero(x)) 
                 	pIJ = pIJ.add(vRight.scale(x));
                 rays.add(new Ray(p0, pIJ.subtract(p0)));
             }
@@ -269,22 +239,27 @@ public class Camera {
         final int nY = imageWriter.getNy();
         
         //print time interval in seconds, 0 if printing is not required
-        pixelManager = new PixelManager(nY, nX, printInterval);
-        int threadsCount =Runtime.getRuntime().availableProcessors();
-        if(threadsCount==0){
-        	for (int i = 0; i < nX; i++)
-        		for (int j = 0; j < nY; j++) {
-        			castRay(nX, nY, j, i);
-			}
-        }
-        else {
+        pixelManager = new PixelManager(nY, nX, 1001);
+        if(threadsCount == 0) {
+        	if(!adaptive) {//Anti-aliasing* improve is on
+        		for (int i = 0; i < nY; i++) 
+        			for (int j = 0; j < nX; j++)
+        				castRay(nX, nY, j, i);
+        	}else {//Adaptive super sampling improve is on
+                for (int i = 0; i < nY; i++) 
+                    for (int j = 0; j < nX; j++) 
+                        imageWriter.writePixel(j, i, AdaptiveSuperSampling(imageWriter.getNx(), imageWriter.getNy(), j, i));
+        	}
+        } else { // see further... option 2
             var threads = new LinkedList<Thread>(); // list of threads
             while (threadsCount-- > 0) // add appropriate number of threads
                 threads.add(new Thread(() -> { // add a thread with its code
                     PixelManager.Pixel pixel; // current pixel(row,col)
                     // allocate pixel(row,col) in loop until there are no more pixels
-                    while ((pixel = pixelManager.nextPixel()) != null){
-                    	castRay(nX, nY, pixel.col(), pixel.row());
+                    while ((pixel = pixelManager.nextPixel()) != null) {
+                        // cast ray through pixel (and color it – inside castRay)
+                        if (!adaptive) castRay(nX, nY, pixel.col(), pixel.row());//multithreading + antialiasing (or antialiasing = 1)
+                        else imageWriter.writePixel(pixel.col(), pixel.row(), AdaptiveSuperSampling(imageWriter.getNx(), imageWriter.getNy(), pixel.col(), pixel.row()));//multithreading + antialiasing +  adaptive
                     }
                 }));
             // start all the threads
@@ -292,30 +267,10 @@ public class Camera {
             // wait until all the threads have finished
             try {
                 for (var thread : threads) thread.join();
-            }
-            catch (InterruptedException ignore) {}
+            } catch (InterruptedException ignore) {}
         }
         return this;
-	}	
-	
-	
-	/** The function transfers beams from camera to pixel, tracks the beam
-	 *  and receives the pixel color from the point of intersection.
-	 * @throws MissingResourceException if one of the fields is empty
-	 * @return the camera itself */
-	/*public Camera renderImageB() {
-		if (p0 == null || vTo == null || vUp == null || vRight == null || distance == 0 || height == 0 || width == 0 || imageWriter == null || rayTracer == null)
-            throw new MissingResourceException("", "", "Camera is not initialized");
-		int nX = imageWriter.getNx();
-        int nY = imageWriter.getNy();
-        Color rayColor;
-		for (int i = 0; i < nX; i++)
-			for (int j = 0; j < nY; j++) {
-				rayColor = castRay(nX, nY, j, i);
-				imageWriter.writePixel(j, i, rayColor);
-			}
-		return this;
-	}*/
+	}
 	
 	
 	/** A function that creates a grid of lines
@@ -341,4 +296,27 @@ public class Camera {
 		
 		imageWriter.writeToImage();
 		}  
-	}
+	
+	
+	
+	/**
+     * Checks the color of the pixel with the help of individual rays and averages between them and only
+     * if necessary continues to send beams of rays in recursion
+     *
+     * @param nX        Pixel length
+     * @param nY        Pixel width
+     * @param j         The position of the pixel relative to the y-axis
+     * @param i         The position of the pixel relative to the x-axis
+     * @return Pixel color
+     */
+    private Color AdaptiveSuperSampling(int nX, int nY, int j, int i) {
+        //int numOfRaysInRowCol = (int)Math.floor(Math.sqrt(numOfRays));
+        Point pIJ = findPixelLocation(nX, nY, j, i);
+        double rY = Util.alignZero(height / nY);//the height of the pixel
+        double rX = Util.alignZero(width / nX);//the width of the pixel
+        double PRy = rY / antiAliasingFactor; //
+        double PRx = rX / antiAliasingFactor; //
+        return rayTracer.AdaptiveSuperSamplingHelper(pIJ, rX, rY, PRx, PRy, this.p0, this.vRight, this.vUp, null);
+    }
+	
+}
