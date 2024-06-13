@@ -9,6 +9,7 @@ import renderer.*;
 import scene.Scene;
 import static java.awt.Color.*;
 
+//MyProject
 /** test the improvement of mini project 2 - Multi Threading and Adaptive Super Sampling
  * @author Menuha and Yael */
 class MiniProject2 {
